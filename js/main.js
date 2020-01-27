@@ -110,9 +110,11 @@ var createPin = function (offer) {
 };
 
 var renderPins = function (offers) {
+  var fragment = document.createDocumentFragment();
   for (var j = 0; j < offers.length; j++) {
     fragment.appendChild(createPin(offers[j]));
   }
+  return fragment;
 };
 
 var map = document.querySelector('.map');
@@ -123,6 +125,4 @@ var pinTemplate = document.querySelector('#pin')
   .content.querySelector('.map__pin');
 var offers = getListOfOffers();
 
-var fragment = document.createDocumentFragment();
-renderPins(offers);
-pin.appendChild(fragment);
+pin.appendChild(renderPins(offers));
