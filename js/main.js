@@ -114,7 +114,7 @@ var renderPins = function (offers) {
   for (var j = 0; j < offers.length; j++) {
     fragment.appendChild(createPin(offers[j]));
   }
-  return fragment;
+  pin.appendChild(fragment);
 };
 
 var map = document.querySelector('.map');
@@ -125,4 +125,4 @@ var pinTemplate = document.querySelector('#pin')
   .content.querySelector('.map__pin');
 var offers = getListOfOffers();
 
-pin.appendChild(renderPins(offers));
+renderPins(offers);
