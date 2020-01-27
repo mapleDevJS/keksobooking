@@ -1,6 +1,6 @@
 'use strict';
 
-var OFFERS_NUMBER = 11;
+var OFFERS_NUMBER = 8;
 var PROPERTIES_TYPE = [
   'palace',
   'flat',
