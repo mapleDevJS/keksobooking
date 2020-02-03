@@ -15,10 +15,16 @@ var PROPERTIES_TYPE_RU = {
   bungalo: 'Бунгало'
 };
 
-var MIN_AMOUNT_ROOM = 1;
-var MAX_AMOUNT_ROOM = 5;
-var MIN_AMOUNT_GUEST = 1;
-var MAX_AMOUNT_GUEST = 10;
+var AMOUNT = {
+  ROOM: {
+    MAX: 5,
+    MIN: 1
+  },
+  GUEST: {
+    MAX: 8,
+    MIN: 1
+  }
+};
 
 var MAP_WIDTH = 1200;
 var MAP_TOP_Y = 130;
@@ -109,8 +115,8 @@ var createOffer = function (offerNumber) {
       address: locationX + ', ' + locationY,
       price: 1000,
       type: getRandomElement(PROPERTIES_TYPE),
-      rooms: getRandomIntInclusive(MIN_AMOUNT_ROOM, MAX_AMOUNT_ROOM),
-      guests: getRandomIntInclusive(MIN_AMOUNT_GUEST, MAX_AMOUNT_GUEST),
+      rooms: getRandomIntInclusive(AMOUNT.ROOM.MIN, AMOUNT.ROOM.MAX),
+      guests: getRandomIntInclusive(AMOUNT.GUEST.MIN, AMOUNT.GUEST.MAX),
       checkin: getRandomElement(CHECKIN_TIME),
       checkout: getRandomElement(CHECKOUT_TIME),
       features: generateFeatures(),
