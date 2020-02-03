@@ -170,17 +170,12 @@ var translateArray = function (words, dictionary) {
 var getEndingsRooms = function (number) {
   if (number === 1) {
     return 'a';
-  } else if (number >= 2 && number <= 4) {
-    return 'ы';
   }
-  return '';
+  return (number >= 2 && number <= 4) ? 'ы' : '';
 };
 
 var getEndingsGuests = function (number) {
-  if (number === 1) {
-    return 'я';
-  }
-  return 'ей';
+  return number === 1 ? 'я' : 'ей';
 };
 
 var generateText = function (rooms, guests) {
