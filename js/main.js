@@ -69,6 +69,8 @@ var PHOTOS = [
 var PIN_OFFSET_X = -25;
 var PIN_OFFSET_Y = -35;
 
+var LENGTH_OF_SLICE = 2;
+
 var map = document.querySelector('.map');
 var mapPin = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -170,7 +172,7 @@ var translateArray = function (words, dictionary) {
   for (var i = 0; i < words.length; i++) {
     translatedString += dictionary[words[i]] + ', ';
   }
-  return translatedString.slice(0, -2);
+  return translatedString.slice(0, -LENGTH_OF_SLICE);
 };
 
 var getEndingsRooms = function (number) {
