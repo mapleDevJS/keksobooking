@@ -81,7 +81,7 @@ var VALIDITY_TEXT = {
   1: '1 комната — «для 1 гостя»',
   2: '2 комнаты — «для 2 гостей» или «для 1 гостя»',
   3: '3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»',
-  100: '100 комнат — «не для гостей»'
+  100: AMOUNT.ROOM.MAX + ' комнат — «не для гостей»'
 };
 
 var map = document.querySelector('.map');
@@ -369,7 +369,7 @@ var guestsNumber = numberOfGuestsSelect.value;
 
 var validateRoomsCapacity = function (rooms, guests) {
 
-  if ((guests > rooms && rooms !== 100) || (rooms !== 100 && guests === 0) || (rooms === 100 && guests > 0)) {
+  if ((guests > rooms && rooms !== AMOUNT.ROOM.MAX) || (rooms !== AMOUNT.ROOM.MAX && guests === 0) || (rooms === 100 && guests > 0)) {
     numberOfGuestsSelect.setCustomValidity(VALIDITY_TEXT[rooms]);
   } else {
     numberOfGuestsSelect.setCustomValidity('');
