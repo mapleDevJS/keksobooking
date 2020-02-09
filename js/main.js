@@ -77,6 +77,13 @@ var PIN_OFFSET_Y = -35;
 
 var ENTER_KEY = 'Enter';
 
+var VALIDITY_TEXT = {
+  1: '1 комната — «для 1 гостя»',
+  2: '2 комнаты — «для 2 гостей» или «для 1 гостя»',
+  3: '3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»',
+  100: '100 комнат — «не для гостей»'
+};
+
 var map = document.querySelector('.map');
 var mapPin = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -356,13 +363,6 @@ numberOfRoomsSelect.addEventListener('change', function () {
 numberOfGuestsSelect.addEventListener('change', function () {
   guestsNumber = numberOfGuestsSelect.value;
 });
-
-var validityText = {
-  1: '1 комната — «для 1 гостя»',
-  2: '2 комнаты — «для 2 гостей» или «для 1 гостя»',
-  3: '3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»',
-  100: '100 комнат — «не для гостей»'
-};
 
 var validateRoomsCapacity = function (rooms, guests) {
   if ((guestsNumber <= roomsNumber && roomsNumber !== 100 && guestsNumber > 0) || (roomsNumber === 100 && guestsNumber === 0)) {
