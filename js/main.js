@@ -91,6 +91,8 @@ var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pi
 // var mapFiltersContainer = map.querySelector('.map__filters-container');
 var notice = document.querySelector('.notice');
 var fieldsets = notice.querySelectorAll('fieldset');
+var inputs = notice.querySelectorAll('input');
+var selects = notice.querySelectorAll('select');
 var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var mapFilters = document.querySelector('.map__filters');
@@ -295,12 +297,18 @@ var card = createCard(offers[0]);
 renderCard(card);
 */
 
-
-for (var i = 0; i < fieldsets.length; i++) {
-  fieldsets[i].classList.add('disabled');
-}
-
-mapFilters.classList.add('disabled');
+var disableForm = function () {
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].classList.add('disabled');
+  }
+  for (i = 0; i < inputs.length; i++) {
+    inputs[i].classList.add('disabled');
+  }
+  for (i = 0; i < selects.length; i++) {
+    selects[i].classList.add('disabled');
+  }
+  mapFilters.classList.add('disabled');
+};
 
 var activateFieldsets = function (elements) {
   for (i = 0; i < elements.length; i++) {
@@ -326,6 +334,8 @@ var getPinCoordinateX = function () {
 var getPinCoordinateY = function () {
   return mapPinMain.style.top.slice(0, -2) - PIN_OFFSET_X;
 };
+
+disableForm();
 
 mapPinMain.addEventListener('mousedown', function (e) {
   if (e.button === 0) {
