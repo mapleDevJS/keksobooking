@@ -367,21 +367,30 @@ var roomsNumber = numberOfRoomsSelect.value;
 var guestsNumber = numberOfGuestsSelect.value;
 
 
-numberOfRoomsSelect.addEventListener('change', function () {
-  roomsNumber = numberOfRoomsSelect.value;
-});
-numberOfGuestsSelect.addEventListener('change', function () {
-  guestsNumber = numberOfGuestsSelect.value;
-});
-
 var validateRoomsCapacity = function (rooms, guests) {
-  if ((guestsNumber <= roomsNumber && roomsNumber !== 100 && guestsNumber > 0) || (roomsNumber === 100 && guestsNumber === 0)) {
-    guests.setCustomValidity('');
+
+  if ((guests > rooms && rooms !== 100) || (rooms !== 100 && guests === 0) || (rooms === 100 && guests > 0)) {
+    numberOfGuestsSelect.setCustomValidity(VALIDITY_TEXT[rooms]);
   } else {
-    guests.setCustomValidity(validityText[roomsNumber]);
+    numberOfGuestsSelect.setCustomValidity('');
   }
 };
 
+console.log('rooms: ' + roomsNumber + ' guests: ' + guestsNumber);
+
+numberOfRoomsSelect.addEventListener('change', function () {
+  roomsNumber = numberOfRoomsSelect.value;
+  console.log('rooms: ' + roomsNumber + ' guests: ' + guestsNumber);
+});
+
+numberOfGuestsSelect.addEventListener('change', function () {
+  guestsNumber = numberOfGuestsSelect.value;
+  console.log('rooms: ' + roomsNumber + ' guests: ' + guestsNumber);
+  console.log(guestsNumber == 0);
+  numberOfGuestsSelect.setCustomValidity('');
+});
+
+
 submitButton.addEventListener('click', function () {
-  validateRoomsCapacity(numberOfRoomsSelect, numberOfGuestsSelect);
+  validateRoomsCapacity(roomsNumber, guestsNumber);
 });
