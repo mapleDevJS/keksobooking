@@ -311,7 +311,7 @@ var disableForm = function () {
 };
 
 var activateFieldsets = function (elements) {
-  for (i = 0; i < elements.length; i++) {
+  for (var i = 0; i < elements.length; i++) {
     elements[i].classList.remove('disabled');
   }
 };
