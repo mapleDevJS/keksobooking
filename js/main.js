@@ -97,6 +97,11 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var mapFilters = document.querySelector('.map__filters');
 var address = document.querySelector('#address');
+var numberOfRoomsSelect = notice.querySelector('#room_number');
+var numberOfGuestsSelect = notice.querySelector('#capacity');
+var submitButton = notice.querySelector('.ad-form__submit');
+var roomsNumber = numberOfRoomsSelect.value;
+var guestsNumber = numberOfGuestsSelect.value;
 
 
 var getRandomElement = function (arr) {
@@ -335,6 +340,15 @@ var getPinCoordinateY = function () {
   return mapPinMain.style.top.slice(0, -2) - PIN_OFFSET_X;
 };
 
+var validateRoomsCapacity = function (rooms, guests) {
+
+  if ((guests > rooms && rooms !== AMOUNT.ROOM.MAX) || (rooms !== AMOUNT.ROOM.MAX && guests === 0) || (rooms === 100 && guests > 0)) {
+    numberOfGuestsSelect.setCustomValidity(VALIDITY_TEXT[rooms]);
+  } else {
+    numberOfGuestsSelect.setCustomValidity('');
+  }
+};
+
 disableForm();
 
 mapPinMain.addEventListener('mousedown', function (e) {
@@ -358,23 +372,6 @@ mapPinMain.addEventListener('keydown', function (evt) {
     setAddress(x, y);
   }
 });
-
-var numberOfRoomsSelect = notice.querySelector('#room_number');
-var numberOfGuestsSelect = notice.querySelector('#capacity');
-var submitButton = notice.querySelector('.ad-form__submit');
-
-var roomsNumber = numberOfRoomsSelect.value;
-var guestsNumber = numberOfGuestsSelect.value;
-
-
-var validateRoomsCapacity = function (rooms, guests) {
-
-  if ((guests > rooms && rooms !== AMOUNT.ROOM.MAX) || (rooms !== AMOUNT.ROOM.MAX && guests === 0) || (rooms === 100 && guests > 0)) {
-    numberOfGuestsSelect.setCustomValidity(VALIDITY_TEXT[rooms]);
-  } else {
-    numberOfGuestsSelect.setCustomValidity('');
-  }
-};
 
 numberOfRoomsSelect.addEventListener('change', function () {
   roomsNumber = parseInt(numberOfRoomsSelect.value, 10);
