@@ -175,12 +175,6 @@ var activateMap = function (element) {
   renderPins(offers);
 };
 
-
-
-var activateMapFilters = function (element) {
-  element.classList.remove('ad-form--disabled');
-};
-
 var createPin = function (offer) {
   var pin = pinTemplate.cloneNode(true);
   var pinX = offer.location.x + PIN_OFFSET_X;
