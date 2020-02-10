@@ -91,11 +91,11 @@ var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pi
 // var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // var mapFiltersContainer = map.querySelector('.map__filters-container');
 var notice = document.querySelector('.notice');
-var fieldsets = notice.querySelectorAll('fieldset');
-var inputs = notice.querySelectorAll('input');
-var selects = notice.querySelectorAll('select');
-var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
+var fieldsets = notice.querySelectorAll('fieldset');
+var inputs = adForm.querySelectorAll('input');
+var selects = adForm.querySelectorAll('select');
+var mapPinMain = document.querySelector('.map__pin--main');
 var mapFilters = document.querySelector('.map__filters');
 var address = document.querySelector('#address');
 var numberOfRoomsSelect = notice.querySelector('#room_number');
@@ -175,9 +175,7 @@ var activateMap = function (element) {
   renderPins(offers);
 };
 
-var activateFormOffer = function (element) {
-  element.classList.remove('ad-form--disabled');
-};
+
 
 var activateMapFilters = function (element) {
   element.classList.remove('ad-form--disabled');
@@ -305,22 +303,31 @@ renderCard(card);
 
 var disableForm = function () {
   for (var i = 0; i < fieldsets.length; i++) {
-    fieldsets[i].classList.add('disabled');
+    fieldsets[i].setAttribute('disabled', 'disabled');
   }
   for (i = 0; i < inputs.length; i++) {
-    inputs[i].classList.add('disabled');
+    inputs[i].setAttribute('disabled', 'disabled');
   }
   for (i = 0; i < selects.length; i++) {
-    selects[i].classList.add('disabled');
+    selects[i].setAttribute('disabled', 'disabled');
   }
-  mapFilters.classList.add('disabled');
+  mapFilters.setAttribute('disabled', 'disabled');
 };
 
-var activateFieldsets = function (elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('disabled');
+var activateForm = function () {
+  adForm.classList.remove('ad-form--disabled');
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].removeAttribute('disabled');
   }
+  for (i = 0; i < inputs.length; i++) {
+    inputs[i].removeAttribute('disabled');
+  }
+  for (i = 0; i < selects.length; i++) {
+    selects[i].removeAttribute('disabled');
+  }
+  mapFilters.removeAttribute('disabled');
 };
+
 
 var setAddress = function (x, y) {
   address.value = x + ', ' + y;
@@ -328,9 +335,7 @@ var setAddress = function (x, y) {
 
 var activatePage = function () {
   activateMap(map);
-  activateFormOffer(adForm);
-  activateFieldsets(fieldsets);
-  activateMapFilters(mapFilters);
+  activateForm();
 };
 
 var getPinCoordinateX = function () {
