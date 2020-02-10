@@ -74,6 +74,7 @@ var PIN_OFFSET_X = -25;
 var PIN_OFFSET_Y = -35;
 
 // var LENGTH_OF_SLICE = 2;
+var PX_CUT = -2;
 
 var ENTER_KEY = 'Enter';
 
@@ -333,11 +334,11 @@ var activatePage = function () {
 };
 
 var getPinCoordinateX = function () {
-  return mapPinMain.style.left.slice(0, -2) - PIN_OFFSET_Y;
+  return mapPinMain.style.left.slice(0, PX_CUT) - PIN_OFFSET_Y;
 };
 
 var getPinCoordinateY = function () {
-  return mapPinMain.style.top.slice(0, -2) - PIN_OFFSET_X;
+  return mapPinMain.style.top.slice(0, PX_CUT) - PIN_OFFSET_X;
 };
 
 var validateRoomsCapacity = function (rooms, guests) {
