@@ -2,23 +2,22 @@
 
 (function () {
 
-  var MAP_WIDTH = 1200;
-  var MAP_TOP_Y = 130;
-  var MAP_BOTTOM_Y = 630;
+  var WIDTH = 1200;
+  var TOP_Y = 130;
+  var BOTTOM_Y = 630;
 
   var map = document.querySelector('.map');
 
   var activate = function () {
-    window.map.map.classList.remove('map--faded');
-    var offers = window.data.getListOfOffers();
-    window.pin.render(offers);
+    map.classList.remove('map--faded');
+
+    window.pin.render(window.card.offers);
   };
 
   window.map = {
-    MAP_WIDTH: MAP_WIDTH,
-    MAP_TOP_Y: MAP_TOP_Y,
-    MAP_BOTTOM_Y: MAP_BOTTOM_Y,
-    map: map,
+    WIDTH: WIDTH,
+    TOP_Y: TOP_Y,
+    BOTTOM_Y: BOTTOM_Y,
     activate: activate
   };
 })();

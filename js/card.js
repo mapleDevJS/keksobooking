@@ -54,9 +54,7 @@
   };
 
   window.card = {
-    template: template,
-    create: create,
-    render: render,
-    mapFiltersContainer: mapFiltersContainer
+    offers: offers,
+    render: render
   };
 })();
