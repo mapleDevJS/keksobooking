@@ -111,8 +111,8 @@
   };
 
   var createOffer = function (offerNumber) {
-    var locationX = window.utils.getRandomIntInclusive(0, window.map.MAP_WIDTH);
-    var locationY = window.utils.getRandomIntInclusive(window.map.MAP_TOP_Y, window.map.MAP_BOTTOM_Y);
+    var locationX = window.utils.getRandomIntInclusive(0, window.map.WIDTH);
+    var locationY = window.utils.getRandomIntInclusive(window.map.TOP_Y, window.map.BOTTOM_Y);
     var offer = {
       author: {
         avatar: 'img/avatars/user0' + (offerNumber + 1) + '.png'

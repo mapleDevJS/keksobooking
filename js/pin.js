@@ -1,18 +1,26 @@
 'use strict';
 
 (function () {
-  var PX_CUT = -2;
-  var PIN_OFFSET_X = -25;
-  var PIN_OFFSET_Y = -35;
+  var PX_CUT = 2;
+
+  var OFFSET = {
+    PIN: {
+      X: 25,
+      Y: 35
+    },
+    MAIN_PIN: {
+      X: 31,
+      Y: 53
+    }
+  };
 
   var mapPin = document.querySelector('.map__pins');
-  var main = document.querySelector('.map__pin--main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var createPin = function (offer) {
     var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x + PIN_OFFSET_X;
-    var pinY = offer.location.y + PIN_OFFSET_Y;
+    var pinX = offer.location.x - OFFSET.PIN.X;
+    var pinY = offer.location.y - OFFSET.PIN.Y;
     pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
     var pinAvatar = pin.querySelector('img');
@@ -30,19 +38,18 @@
     mapPin.appendChild(fragment);
   };
 
-  var getCoordinateX = function () {
-    return main.style.left.slice(0, PX_CUT) - PIN_OFFSET_Y;
+  var getCoordinateX = function (pin) {
+    return parseInt(pin.style.left.slice(0, -PX_CUT), 10) + OFFSET.PIN.X;
   };
 
-  var getCoordinateY = function () {
-    return main.style.top.slice(0, PX_CUT) - PIN_OFFSET_X;
+  var getCoordinateY = function (pin) {
+    return parseInt(pin.style.top.slice(0, -PX_CUT), 10) + OFFSET.PIN.Y;
   };
-
 
   window.pin = {
-    main: main,
-    render: render,
+    OFFSET: OFFSET,
     getCoordinateX: getCoordinateX,
-    getCoordinateY: getCoordinateY
+    getCoordinateY: getCoordinateY,
+    render: render
   };
 })();
