@@ -30,7 +30,7 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
-    window.backend.load(onSuccess, onError);
+    window.backend.load(window.backend.SERVER_URL.GET, onSuccess, onError);
   };
 
   window.map = {
