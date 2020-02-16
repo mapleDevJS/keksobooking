@@ -138,11 +138,8 @@
     return offer;
   };
 
-  var getListOfOffers = function () {
-    var offers = [];
-    for (var i = 0; i < window.data.OFFERS_NUMBER; i++) {
-      offers[i] = createOffer(i);
-    }
+  var getListOfOffers = function (data) {
+    var offers = window.utils.getMultipleRandomElements(data, OFFERS_NUMBER);
     return offers;
   };
 

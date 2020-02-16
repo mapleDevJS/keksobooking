@@ -46,15 +46,15 @@
     return card;
   };
 
-  var offers = window.data.getListOfOffers();
-  var card = create(offers[0]);
+  // var offers = window.data.getListOfOffers();
+  // var card = create(offers[0]);
 
-  var render = function () {
+  var render = function (card) {
     map.insertBefore(card, mapFiltersContainer);
   };
 
   window.card = {
-    offers: offers,
+    create: create,
     render: render
   };
 })();

@@ -8,8 +8,21 @@
 
   var LENGTH_OF_SLICE = 2;
 
-  var getRandomElement = function (arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+  var getRandomElement = function (array) {
+    return array[Math.floor(Math.random() * array.length)];
+  };
+
+  var getMultipleRandomElements = function (array, n) {
+    var originalArray = array;
+    var modifiedArray = [];
+    for (var i = 0; i < n; i++) {
+      var element = getRandomElement(originalArray);
+      modifiedArray.push(element);
+      var index = originalArray.indexOf(element);
+      originalArray.splice(index, 1);
+    }
+
+    return modifiedArray;
   };
 
 
@@ -31,6 +44,7 @@
   window.utils = {
     KEY: KEY,
     getRandomElement: getRandomElement,
+    getMultipleRandomElements: getMultipleRandomElements,
     getRandomIntInclusive: getRandomIntInclusive,
     translateArray: translateArray
   };
