@@ -53,12 +53,12 @@
     return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
   };
 
-  var getCoordinateX = function (pin) {
-    return getPositionX(pin) + OFFSET.PIN.X;
+  var getCoordinateX = function (pin, offset) {
+    return getPositionX(pin) + offset.X;
   };
 
-  var getCoordinateY = function (pin) {
-    return getPositionY(pin) + OFFSET.PIN.Y;
+  var getCoordinateY = function (pin, offset) {
+    return getPositionY(pin) + offset.Y;
   };
 
   var mainPinDefault = {
