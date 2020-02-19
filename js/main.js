@@ -6,9 +6,11 @@
     window.form.activate();
   };
 
-  window.form.disable();
+  var disablePage = function () {
 
-  var mainPin = document.querySelector('.map__pin--main');
+  };
+
+  window.form.disable();
 
   var onMouseDown = function (downEvt) {
     downEvt.preventDefault();
@@ -16,8 +18,8 @@
       activatePage();
 
       var pinCoordinates = {
-        x: window.pin.getCoordinateX(mainPin),
-        y: window.pin.getCoordinateY(mainPin)
+        x: window.pin.getCoordinateX(window.pin.mainPin),
+        y: window.pin.getCoordinateY(window.pin.mainPin)
       };
 
       var mouseStartCoordinates = {
@@ -42,8 +44,8 @@
 
 
         pinCoordinates = {
-          x: mainPin.offsetLeft - shift.x,
-          y: mainPin.offsetTop - shift.y
+          x: window.pin.mainPin.offsetLeft - shift.x,
+          y: window.pin.mainPin.offsetTop - shift.y
         };
 
         var leftBorder = -window.pin.OFFSET.MAIN_PIN.X;
@@ -58,8 +60,8 @@
         var bottomBorder = window.map.BOTTOM_Y;
         pinCoordinates.y = (pinCoordinates.y > bottomBorder) ? bottomBorder : pinCoordinates.y;
 
-        mainPin.style.left = pinCoordinates.x + 'px';
-        mainPin.style.top = pinCoordinates.y + 'px';
+        window.pin.mainPin.style.left = pinCoordinates.x + 'px';
+        window.pin.mainPin.style.top = pinCoordinates.y + 'px';
       };
 
       var onMouseUp = function (upEvt) {
@@ -77,7 +79,7 @@
     }
   };
 
-  mainPin.addEventListener('mousedown', onMouseDown);
+  window.pin.mainPin.addEventListener('mousedown', onMouseDown);
 
   var onKeyDown = function (evt) {
     if (evt.key === window.utils.KEY.ENTER) {
@@ -91,6 +93,10 @@
     }
   };
 
-  mainPin.addEventListener('keydown', onKeyDown);
+  window.pin.mainPin.addEventListener('keydown', onKeyDown);
+
+  window.main = {
+    disablePage: disablePage
+  };
 
 })();

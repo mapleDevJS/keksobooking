@@ -5,22 +5,23 @@
 
   var OFFSET = {
     PIN: {
-      X: 25,
-      Y: 35
+      X: 20,
+      Y: 70
     },
     MAIN_PIN: {
       X: 31,
-      Y: 53
+      Y: 84
     }
   };
 
   var mapPin = document.querySelector('.map__pins');
+  var mainPin = document.querySelector('.map__pin--main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var createPin = function (offer) {
     var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x - OFFSET.PIN.X;
-    var pinY = offer.location.y - OFFSET.PIN.Y;
+    var pinX = offer.location.x + OFFSET.PIN.X;
+    var pinY = offer.location.y + OFFSET.PIN.Y;
     pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
     var pinAvatar = pin.querySelector('img');
@@ -48,6 +49,7 @@
 
   window.pin = {
     OFFSET: OFFSET,
+    mainPin: mainPin,
     getCoordinateX: getCoordinateX,
     getCoordinateY: getCoordinateY,
     render: render

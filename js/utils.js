@@ -3,7 +3,8 @@
 (function () {
   var KEY = {
     MOUSE_LEFT: 0,
-    ENTER: 'Enter'
+    ENTER: 'Enter',
+    ESCAPE: 'Escape'
   };
 
   var LENGTH_OF_SLICE = 2;
