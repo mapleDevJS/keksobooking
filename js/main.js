@@ -80,11 +80,12 @@
       window.map.activate();
       window.form.activate();
 
-      var startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
+      mainPinCoord = {
+        x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN),
+        y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN)
       };
-      window.form.setAddress(startCoords.x, startCoords.y);
+
+      window.form.setAddress(mainPinCoord.x, mainPinCoord.y);
     }
   };
 
