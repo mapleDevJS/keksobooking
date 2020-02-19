@@ -39,12 +39,36 @@
     mapPin.appendChild(fragment);
   };
 
+  var remove = function (pins) {
+    for (var i = 0; i < pins.length; i++) {
+      pins[i].remove();
+    }
+  };
+
+  var getPositionX = function (pin) {
+    return parseInt(pin.style.left.slice(0, -PX_CUT), 10);
+  };
+
+  var getPositionY = function (pin) {
+    return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
+  };
+
   var getCoordinateX = function (pin) {
-    return parseInt(pin.style.left.slice(0, -PX_CUT), 10) + OFFSET.PIN.X;
+    return getPositionX(pin) + OFFSET.PIN.X;
   };
 
   var getCoordinateY = function (pin) {
-    return parseInt(pin.style.top.slice(0, -PX_CUT), 10) + OFFSET.PIN.Y;
+    return getPositionY(pin) + OFFSET.PIN.Y;
+  };
+
+  var mainPinDefault = {
+    x: getPositionX(mainPin),
+    y: getPositionY(mainPin)
+  };
+
+  var setPosition = function (pin, x, y) {
+    pin.style.left = x + 'px';
+    pin.style.top = y + 'px';
   };
 
   window.pin = {
@@ -52,6 +76,9 @@
     mainPin: mainPin,
     getCoordinateX: getCoordinateX,
     getCoordinateY: getCoordinateY,
-    render: render
+    mainPinDefault: mainPinDefault,
+    setPosition: setPosition,
+    render: render,
+    remove: remove
   };
 })();

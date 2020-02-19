@@ -26,6 +26,7 @@
   };
 
   var disable = function () {
+    form.classList.add('ad-form--disabled');
     for (var i = 0; i < formElements.length; i++) {
       var element = formElements[i];
 
@@ -56,28 +57,37 @@
   };
 
   var onSuccess = function () {
-    form.reset();
-    // window.map.deleteAllUserAds();
-    window.map.disable();
     window.message.show('success');
     document.addEventListener('click', window.message.close);
     document.addEventListener('keydown', window.message.close);
+    disable();
+    window.map.disable();
+    form.reset();
   };
 
   var resetForm = function (evt) {
     evt.preventDefault();
     form.reset();
+    disable();
+    window.map.disable();
 
     var pinCoordinates = {
       x: window.pin.getCoordinateX(window.pin.mainPin),
       y: window.pin.getCoordinateY(window.pin.mainPin)
     };
 
+
+    window.pin.setPosition(window.pin.mainPin, window.pin.mainPinDefault.x, window.pin.mainPinDefault.y);
+
     setAddress(pinCoordinates.x, pinCoordinates.y);
   };
 
   resetButton.addEventListener('click', resetForm);
   resetButton.addEventListener('keydown', resetForm);
+
+  // submitButton.addEventListener('click', function () {
+  //   window.validation.validateRoomsCapacity(roomsNumber, guestsNumber);
+  // });
 
   form.addEventListener('submit', function (evt) {
     window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);

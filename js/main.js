@@ -1,33 +1,22 @@
 'use strict';
 (function () {
-  // window.card.render();
-  var activatePage = function () {
-    window.map.activate();
-    window.form.activate();
+  var pinCoordinates = {
+    x: window.pin.getCoordinateX(window.pin.mainPin),
+    y: window.pin.getCoordinateY(window.pin.mainPin)
   };
-
-  var disablePage = function () {
-
-  };
-
+  window.form.setAddress(pinCoordinates.x, pinCoordinates.y);
   window.form.disable();
 
   var onMouseDown = function (downEvt) {
     downEvt.preventDefault();
     if (downEvt.button === window.utils.KEY.MOUSE_LEFT) {
-      activatePage();
-
-      var pinCoordinates = {
-        x: window.pin.getCoordinateX(window.pin.mainPin),
-        y: window.pin.getCoordinateY(window.pin.mainPin)
-      };
+      window.map.activate();
+      window.form.activate();
 
       var mouseStartCoordinates = {
         x: downEvt.clientX,
         y: downEvt.clientY
       };
-
-      window.form.setAddress(pinCoordinates.x, pinCoordinates.y);
 
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
@@ -83,7 +72,8 @@
 
   var onKeyDown = function (evt) {
     if (evt.key === window.utils.KEY.ENTER) {
-      activatePage();
+      window.map.activate();
+      window.form.activate();
 
       var startCoords = {
         x: evt.clientX,
@@ -94,9 +84,5 @@
   };
 
   window.pin.mainPin.addEventListener('keydown', onKeyDown);
-
-  window.main = {
-    disablePage: disablePage
-  };
 
 })();

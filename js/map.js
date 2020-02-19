@@ -34,6 +34,10 @@
   };
 
   var disable = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    window.pin.remove(pins);
+    window.pin.setPosition(window.pin.mainPin, window.pin.mainPinDefault.x, window.pin.mainPinDefault.y);
+
     map.classList.add('map--faded');
   };
 
