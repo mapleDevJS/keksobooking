@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var KEY = {
+  var key = {
     MOUSE_LEFT: 0,
     ENTER: 'Enter',
     ESCAPE: 'Escape'
@@ -43,7 +43,7 @@
   };
 
   window.utils = {
-    KEY: KEY,
+    key: key,
     getRandomElement: getRandomElement,
     getMultipleRandomElements: getMultipleRandomElements,
     getRandomIntInclusive: getRandomIntInclusive,

@@ -3,7 +3,7 @@
 (function () {
   var PX_CUT = 2;
 
-  var OFFSET = {
+  var offset = {
     PIN: {
       X: 20,
       Y: 70
@@ -20,8 +20,8 @@
 
   var createPin = function (offer) {
     var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x + OFFSET.PIN.X;
-    var pinY = offer.location.y + OFFSET.PIN.Y;
+    var pinX = offer.location.x + offset.PIN.X;
+    var pinY = offer.location.y + offset.PIN.Y;
     pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
     var pinAvatar = pin.querySelector('img');
@@ -53,12 +53,12 @@
     return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
   };
 
-  var getCoordinateX = function (pin, offset) {
-    return getPositionX(pin) + offset.X;
+  var getCoordinateX = function (pin, pinOffset) {
+    return getPositionX(pin) + pinOffset;
   };
 
-  var getCoordinateY = function (pin, offset) {
-    return getPositionY(pin) + offset.Y;
+  var getCoordinateY = function (pin, pinOffset) {
+    return getPositionY(pin) + pinOffset;
   };
 
   var mainPinDefault = {
@@ -72,7 +72,7 @@
   };
 
   window.pin = {
-    OFFSET: OFFSET,
+    offset: offset,
     mainPin: mainPin,
     getCoordinateX: getCoordinateX,
     getCoordinateY: getCoordinateY,

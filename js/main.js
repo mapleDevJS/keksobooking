@@ -1,15 +1,15 @@
 'use strict';
 (function () {
   var mainPinCoord = {
-    x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN),
-    y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN)
+    x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.offset.MAIN_PIN.X),
+    y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.offset.MAIN_PIN.Y)
   };
   window.form.setAddress(mainPinCoord.x, mainPinCoord.y);
   window.form.disable();
 
   var onMouseDown = function (downEvt) {
     downEvt.preventDefault();
-    if (downEvt.button === window.utils.KEY.MOUSE_LEFT) {
+    if (downEvt.button === window.utils.key.MOUSE_LEFT) {
       window.map.activate();
       window.form.activate();
 
@@ -37,16 +37,16 @@
           y: window.pin.mainPin.offsetTop - shift.y
         };
 
-        var leftBorder = -window.pin.OFFSET.MAIN_PIN.X;
+        var leftBorder = -window.pin.offset.MAIN_PIN.X;
         mainPinCoord.x = (mainPinCoord.x < leftBorder) ? leftBorder : mainPinCoord.x;
 
-        var rightBorder = window.map.WIDTH - window.pin.OFFSET.MAIN_PIN.X;
+        var rightBorder = window.map.WIDTH - window.pin.offset.MAIN_PIN.X;
         mainPinCoord.x = (mainPinCoord.x > rightBorder) ? rightBorder : mainPinCoord.x;
 
-        var topBorder = window.map.TOP_Y - window.pin.OFFSET.MAIN_PIN.Y;
+        var topBorder = window.map.TOP_Y - window.pin.offset.MAIN_PIN.Y;
         mainPinCoord.y = (mainPinCoord.y < topBorder) ? topBorder : mainPinCoord.y;
 
-        var bottomBorder = window.map.BOTTOM_Y - window.pin.OFFSET.MAIN_PIN.Y;
+        var bottomBorder = window.map.BOTTOM_Y - window.pin.offset.MAIN_PIN.Y;
         mainPinCoord.y = (mainPinCoord.y > bottomBorder) ? bottomBorder : mainPinCoord.y;
 
         window.pin.mainPin.style.left = mainPinCoord.x + 'px';
@@ -60,8 +60,8 @@
         document.removeEventListener('mouseup', onMouseUp);
 
         mainPinCoord = {
-          x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN),
-          y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN)
+          x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.offset.MAIN_PIN.X),
+          y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.offset.MAIN_PIN.Y)
         };
 
         window.form.setAddress(mainPinCoord.x, mainPinCoord.y);
@@ -76,13 +76,13 @@
   window.pin.mainPin.addEventListener('mousedown', onMouseDown);
 
   var onKeyDown = function (evt) {
-    if (evt.key === window.utils.KEY.ENTER) {
+    if (evt.key === window.utils.key.ENTER) {
       window.map.activate();
       window.form.activate();
 
       mainPinCoord = {
-        x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN),
-        y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.OFFSET.MAIN_PIN)
+        x: window.pin.getCoordinateX(window.pin.mainPin, window.pin.offset.MAIN_PIN.X),
+        y: window.pin.getCoordinateY(window.pin.mainPin, window.pin.offset.MAIN_PIN.Y)
       };
 
       window.form.setAddress(mainPinCoord.x, mainPinCoord.y);
