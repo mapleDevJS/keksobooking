@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  var SERVER_URL = {
+  var serverUrl = {
     GET: 'https://js.dump.academy/keksobooking/data',
-    PUSH: 'https://js.dump.academy/keksobooking'
+    POST: 'https://js.dump.academy/keksobooking'
   };
 
-  var TIMEOUT_IN_MS = 1;
+  var TIMEOUT_IN_MS = 10000;
 
   var serverStatus = {
     OK: 200
@@ -25,7 +25,7 @@
       }
     });
 
-    xhr.open('POST', url);
+    xhr.open('POST', serverUrl.POST);
     xhr.send(data);
   };
 
@@ -53,7 +53,7 @@
   };
 
   window.backend = {
-    SERVER_URL: SERVER_URL,
+    serverUrl: serverUrl,
     save: save,
     load: load
   };

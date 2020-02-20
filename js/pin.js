@@ -3,24 +3,25 @@
 (function () {
   var PX_CUT = 2;
 
-  var OFFSET = {
+  var offset = {
     PIN: {
-      X: 25,
-      Y: 35
+      X: 20,
+      Y: 70
     },
     MAIN_PIN: {
       X: 31,
-      Y: 53
+      Y: 84
     }
   };
 
   var mapPin = document.querySelector('.map__pins');
+  var mainPin = document.querySelector('.map__pin--main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var createPin = function (offer) {
     var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x - OFFSET.PIN.X;
-    var pinY = offer.location.y - OFFSET.PIN.Y;
+    var pinX = offer.location.x + offset.PIN.X;
+    var pinY = offer.location.y + offset.PIN.Y;
     pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
     var pinAvatar = pin.querySelector('img');
@@ -38,18 +39,46 @@
     mapPin.appendChild(fragment);
   };
 
-  var getCoordinateX = function (pin) {
-    return parseInt(pin.style.left.slice(0, -PX_CUT), 10) + OFFSET.PIN.X;
+  var remove = function (pins) {
+    for (var i = 0; i < pins.length; i++) {
+      pins[i].remove();
+    }
   };
 
-  var getCoordinateY = function (pin) {
-    return parseInt(pin.style.top.slice(0, -PX_CUT), 10) + OFFSET.PIN.Y;
+  var getPositionX = function (pin) {
+    return parseInt(pin.style.left.slice(0, -PX_CUT), 10);
+  };
+
+  var getPositionY = function (pin) {
+    return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
+  };
+
+  var getCoordinateX = function (pin, pinOffset) {
+    return getPositionX(pin) + pinOffset;
+  };
+
+  var getCoordinateY = function (pin, pinOffset) {
+    return getPositionY(pin) + pinOffset;
+  };
+
+  var mainPinDefault = {
+    x: getPositionX(mainPin),
+    y: getPositionY(mainPin)
+  };
+
+  var setPosition = function (pin, x, y) {
+    pin.style.left = x + 'px';
+    pin.style.top = y + 'px';
   };
 
   window.pin = {
-    OFFSET: OFFSET,
+    offset: offset,
+    mainPin: mainPin,
     getCoordinateX: getCoordinateX,
     getCoordinateY: getCoordinateY,
-    render: render
+    mainPinDefault: mainPinDefault,
+    setPosition: setPosition,
+    render: render,
+    remove: remove
   };
 })();

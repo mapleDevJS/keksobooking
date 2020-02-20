@@ -13,9 +13,9 @@
 
     var onSuccess = function (data) {
       var offers = window.data.getListOfOffers(data);
-      var card = window.card.create(offers[0]);
+      // var card = window.card.create(offers[0]);
       window.pin.render(offers);
-      window.card.render(card);
+      // window.card.render(card);
     };
 
     var onError = function (errorMessage) {
@@ -30,13 +30,22 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
-    window.backend.load(window.backend.SERVER_URL.GET, onSuccess, onError);
+    window.backend.load(window.backend.serverUrl.GET, onSuccess, onError);
+  };
+
+  var disable = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    window.pin.remove(pins);
+    window.pin.setPosition(window.pin.mainPin, window.pin.mainPinDefault.x, window.pin.mainPinDefault.y);
+
+    map.classList.add('map--faded');
   };
 
   window.map = {
     WIDTH: WIDTH,
     TOP_Y: TOP_Y,
     BOTTOM_Y: BOTTOM_Y,
-    activate: activate
+    activate: activate,
+    disable: disable
   };
 })();

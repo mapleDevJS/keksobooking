@@ -13,6 +13,7 @@
 
     if ((guests > rooms && rooms !== window.data.AMOUNT.ROOM.MAX) || (rooms !== window.data.AMOUNT.ROOM.MAX && guests === 0) || (rooms === 100 && guests > 0)) {
       window.form.numberOfGuestsSelect.setCustomValidity(VALIDITY_TEXT[rooms]);
+      window.form.numberOfGuestsSelect.style.border = '1px solid red';
     } else {
       window.form.numberOfGuestsSelect.setCustomValidity('');
     }
@@ -25,11 +26,6 @@
   window.form.numberOfGuestsSelect.addEventListener('change', function () {
     window.form.guestsNumber = parseInt(window.form.numberOfGuestsSelect.value, 10);
     window.form.numberOfGuestsSelect.setCustomValidity('');
-  });
-
-
-  window.form.submitButton.addEventListener('click', function () {
-    window.validation.validateRoomsCapacity(window.form.roomsNumber, window.form.guestsNumber);
   });
 
   window.validation = {
