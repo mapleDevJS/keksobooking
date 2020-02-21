@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var PX_CUT = 2;
-
   var offset = {
     PIN: {
       X: 20,
@@ -14,11 +12,11 @@
     }
   };
 
-  var mapPin = document.querySelector('.map__pins');
+  var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var createPin = function (offer) {
+  var create = function (offer) {
     var pin = pinTemplate.cloneNode(true);
     var pinX = offer.location.x + offset.PIN.X;
     var pinY = offer.location.y + offset.PIN.Y;
@@ -34,9 +32,10 @@
   var render = function (offers) {
     var fragment = document.createDocumentFragment();
     for (var j = 0; j < offers.length; j++) {
-      fragment.appendChild(createPin(offers[j]));
+      var pin = create(offers[j]);
+      fragment.appendChild(pin);
     }
-    mapPin.appendChild(fragment);
+    mapPins.appendChild(fragment);
   };
 
   var remove = function (pins) {
@@ -45,28 +44,28 @@
     }
   };
 
-  var getPositionX = function (pin) {
-    return parseInt(pin.style.left.slice(0, -PX_CUT), 10);
-  };
+  // var getPositionX = function (pin) {
+  //   return parseInt(pin.style.left.slice(0, -PX_CUT), 10);
+  // };
+  //
+  // var getPositionY = function (pin) {
+  //   return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
+  // };
 
-  var getPositionY = function (pin) {
-    return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
-  };
+  // var getCoordinateX = function (pin, pinOffset) {
+  //   return getPositionX(pin) + pinOffset;
+  // };
+  //
+  // var getCoordinateY = function (pin, pinOffset) {
+  //   return getPositionY(pin) + pinOffset;
+  // };
 
-  var getCoordinateX = function (pin, pinOffset) {
-    return getPositionX(pin) + pinOffset;
-  };
+  // var mainPinDefault = {
+  //   x: getPositionX(mainPin),
+  //   y: getPositionY(mainPin)
+  // };
 
-  var getCoordinateY = function (pin, pinOffset) {
-    return getPositionY(pin) + pinOffset;
-  };
-
-  var mainPinDefault = {
-    x: getPositionX(mainPin),
-    y: getPositionY(mainPin)
-  };
-
-  var setPosition = function (pin, x, y) {
+  var setPositionOnMap = function (pin, x, y) {
     pin.style.left = x + 'px';
     pin.style.top = y + 'px';
   };
@@ -74,10 +73,8 @@
   window.pin = {
     offset: offset,
     mainPin: mainPin,
-    getCoordinateX: getCoordinateX,
-    getCoordinateY: getCoordinateY,
-    mainPinDefault: mainPinDefault,
-    setPosition: setPosition,
+    // mainPinDefault: mainPinDefault,
+    setPositionOnMap: setPositionOnMap,
     render: render,
     remove: remove
   };

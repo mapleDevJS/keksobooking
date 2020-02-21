@@ -7,15 +7,22 @@
   var BOTTOM_Y = 630;
 
   var map = document.querySelector('.map');
+  var mainPin = document.querySelector('.map__pin--main');
+
+  var mainPinPosition = {
+    DEFAULT: {
+      x: mainPin.offsetLeft,
+      y: mainPin.offsetTop
+    }
+  }
 
   var activate = function () {
-    map.classList.remove('map--faded');
-
     var onSuccess = function (data) {
+      map.classList.remove('map--faded');
       var offers = window.data.getListOfOffers(data);
-      // var card = window.card.create(offers[0]);
       window.pin.render(offers);
-      // window.card.render(card);
+      window.main.pageActivated = true;
+      console.log(window.main.pageActivated);
     };
 
     var onError = function (errorMessage) {
@@ -36,8 +43,7 @@
   var disable = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.pin.remove(pins);
-    window.pin.setPosition(window.pin.mainPin, window.pin.mainPinDefault.x, window.pin.mainPinDefault.y);
-
+    window.pin.setPositionOnMap(mainPin, mainPinPosition.DEFAULT.x, mainPinPosition.DEFAULT.y);
     map.classList.add('map--faded');
   };
 

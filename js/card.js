@@ -8,40 +8,25 @@
   var create = function (advertisement) {
     var card = template.cloneNode(true);
 
-    var title = card.querySelector('.popup__title');
-    title.textContent = advertisement.offer.title;
-
-    var address = card.querySelector('.popup__text--address');
-    address.textContent = advertisement.offer.address;
-
-    var price = card.querySelector('.popup__text--price');
-    price.textContent = advertisement.offer.price + ' ₽/ночь';
-
-    var type = card.querySelector('.popup__type');
-
-    // type.textContent = getPropertiesType(advertisement.offer.type);
-    var offerType = [];
-    offerType.push(advertisement.offer.type);
-    type.textContent = window.utils.translateArray(offerType, window.data.PROPERTIES_TYPE_RU);
+    var title = card.querySelector('.popup__title').textContent = advertisement.offer.title;
+    var address = card.querySelector('.popup__text--address').textContent = advertisement.offer.address;
+    var price = card.querySelector('.popup__text--price').textContent = advertisement.offer.price + ' ₽/ночь';
+    var type = card.querySelector('.popup__type').textContent = window.data.PROPERTIES_TYPE_RU[advertisement.offer.type];
 
     var capacity = card.querySelector('.popup__text--capacity');
-    var textRoomsAndGuests = window.data.generateText(advertisement.offer.rooms, advertisement.offer.guests);
-    capacity.textContent = textRoomsAndGuests;
+    capacity.textContent = window.data.generateTextRoomsAndGuests(advertisement.offer.rooms, advertisement.offer.guests);
 
     var time = card.querySelector('.popup__text--time');
     time.textContent = 'Заезд после ' + advertisement.offer.checkin + ', выезд до ' + advertisement.offer.checkout;
 
     var features = card.querySelector('.popup__features');
-    features.textContent = window.utils.translateArray(advertisement.offer.features, window.data.FEATURES_RU);
+    features.textContent = window.data.FEATURES_RU[advertisement.offer.features];
 
-    var description = card.querySelector('.popup__description');
-    description.textContent = advertisement.offer.description;
+    var description = card.querySelector('.popup__description').textContent = advertisement.offer.description;
 
-    var photos = card.querySelector('.popup__photos');
-    photos.innerHTML = window.data.generatePhotos(advertisement.offer.photos);
+    var photos = card.querySelector('.popup__photos').innerHTML = advertisement.offer.photos;
 
-    var avatar = card.querySelector('.popup__avatar');
-    avatar.src = advertisement.author.avatar;
+    var avatar = card.querySelector('.popup__avatar').src = advertisement.author.avatar;
 
     return card;
   };
@@ -49,7 +34,8 @@
   // var offers = window.data.getListOfOffers();
   // var card = create(offers[0]);
 
-  var render = function (card) {
+  var render = function (evt, offer) {
+    var card = create(offer);
     map.insertBefore(card, mapFiltersContainer);
   };
 

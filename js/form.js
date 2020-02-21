@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var mainPin = document.querySelector('.map__pin--main');
   var notice = document.querySelector('.notice');
   var form = notice.querySelector('.ad-form');
   var fieldsets = form.querySelectorAll('fieldset');
@@ -21,7 +22,9 @@
     selects
   ];
 
-  var setAddress = function (x, y) {
+  var fillAddressInput = function () {
+    var x = mainPin.offsetLeft + window.pin.offset.MAIN_PIN.X;
+    var y = mainPin.offsetTop + window.pin.offset.MAIN_PIN.Y
     address.value = x + ', ' + y;
   };
 
@@ -65,39 +68,40 @@
     form.reset();
   };
 
-  var resetForm = function (evt) {
+  var onMouseClick = function (evt) {
     evt.preventDefault();
     form.reset();
     disable();
     window.map.disable();
-
-    var pinCoordinates = {
-      x: window.pin.getCoordinateX(window.pin.mainPin),
-      y: window.pin.getCoordinateY(window.pin.mainPin)
-    };
-
-
-    window.pin.setPosition(window.pin.mainPin, window.pin.mainPinDefault.x, window.pin.mainPinDefault.y);
-
-    setAddress(pinCoordinates.x, pinCoordinates.y);
+    fillAddressInput();
+    window.main.pageActivated = false;
+    console.log(window.main.pageActivated);
   };
 
-  resetButton.addEventListener('click', resetForm);
-  resetButton.addEventListener('keydown', resetForm);
+  var onEnterKeyDown = function (evt) {
+    if (evt.key === window.utils.key.ENTER) {
+      onMouseClick();
+    }
+  };
+
+  resetButton.addEventListener('click', onMouseClick);
+  resetButton.addEventListener('keydown', onEnterKeyDown);
 
   // submitButton.addEventListener('click', function () {
   //   window.validation.validateRoomsCapacity(roomsNumber, guestsNumber);
   // });
 
-  form.addEventListener('submit', function (evt) {
+  var onFormSubmit = function (evt) {
     window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
     evt.preventDefault();
-  });
+  };
+
+  form.addEventListener('submit', onFormSubmit);
 
   window.form = {
     disable: disable,
     activate: activate,
-    setAddress: setAddress,
+    fillAddressInput: fillAddressInput,
     submitButton: submitButton,
     roomsNumber: roomsNumber,
     guestsNumber: guestsNumber,

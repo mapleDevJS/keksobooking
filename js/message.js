@@ -20,7 +20,7 @@
   };
 
   var close = function (evt) {
-    if (evt.button === window.utils.key.MOUSE_LEFT || evt.key === window.utils.key.ESCAPE) {
+    if (evt.button === window.utils.key.MOUSE_MAIN || evt.key === window.utils.key.ESCAPE) {
       if (errorMessage) {
         errorMessage.remove();
       }
