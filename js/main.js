@@ -37,17 +37,10 @@
           y: mainPin.offsetTop - shift.y
         };
 
-        var leftBorder = -window.pin.offset.MAIN_PIN.X;
-        mainPinCoord.x = (mainPinCoord.x < leftBorder) ? leftBorder : mainPinCoord.x;
-
-        var rightBorder = window.map.WIDTH - window.pin.offset.MAIN_PIN.X;
-        mainPinCoord.x = (mainPinCoord.x > rightBorder) ? rightBorder : mainPinCoord.x;
-
-        var topBorder = window.map.TOP_Y - window.pin.offset.MAIN_PIN.Y;
-        mainPinCoord.y = (mainPinCoord.y < topBorder) ? topBorder : mainPinCoord.y;
-
-        var bottomBorder = window.map.BOTTOM_Y - window.pin.offset.MAIN_PIN.Y;
-        mainPinCoord.y = (mainPinCoord.y > bottomBorder) ? bottomBorder : mainPinCoord.y;
+        mainPinCoord.x = (mainPinCoord.x < window.map.limit.LEFT) ? window.map.limit.LEFT : mainPinCoord.x;
+        mainPinCoord.x = (mainPinCoord.x > window.map.limit.RIGHT) ? window.map.limit.RIGHT : mainPinCoord.x;
+        mainPinCoord.y = (mainPinCoord.y < window.map.limit.TOP) ? window.map.limit.TOP : mainPinCoord.y;
+        mainPinCoord.y = (mainPinCoord.y > window.map.limit.BOTTOM) ? window.map.limit.BOTTOM : mainPinCoord.y;
 
         window.pin.setPositionOnMap(mainPin, mainPinCoord.x, mainPinCoord.y);
       };

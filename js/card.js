@@ -23,9 +23,7 @@
     features.textContent = window.data.FEATURES_RU[advertisement.offer.features];
 
     card.querySelector('.popup__description').textContent = advertisement.offer.description;
-
     card.querySelector('.popup__photos').innerHTML = window.data.generatePhotos(advertisement.offer.photos);
-
     card.querySelector('.popup__avatar').src = advertisement.author.avatar;
 
     return card;

@@ -3,8 +3,15 @@
 (function () {
 
   var WIDTH = 1200;
-  var TOP_Y = 130;
-  var BOTTOM_Y = 630;
+  var TOP = 130;
+  var BOTTOM = 630;
+
+  var limit = {
+    TOP: TOP - window.pin.offset.MAIN_PIN.Y,
+    RIGHT: WIDTH - window.pin.offset.MAIN_PIN.X,
+    BOTTOM: BOTTOM - window.pin.offset.MAIN_PIN.Y,
+    LEFT: -window.pin.offset.MAIN_PIN.X
+  };
 
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
@@ -46,9 +53,7 @@
   };
 
   window.map = {
-    WIDTH: WIDTH,
-    TOP_Y: TOP_Y,
-    BOTTOM_Y: BOTTOM_Y,
+    limit: limit,
     activate: activate,
     disable: disable
   };
