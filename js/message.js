@@ -11,7 +11,6 @@
   var show = function (message, status) {
     switch (status) {
       case 'error':
-        console.log(status);
         errorMessage.querySelector('.error__message').textContent = message;
         main.appendChild(errorMessage);
         break;

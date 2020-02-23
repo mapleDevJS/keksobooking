@@ -36,11 +36,11 @@
     xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.addEventListener('load', function () {
-
       if (xhr.status === serverStatus.OK) {
         onLoad(xhr.response);
       } else {
-        onError(('Статус ответа: ' + xhr.status + ' ' + xhr.statusText), 'error');
+        var message = 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
+        onError(message, 'error');
       }
     });
 
@@ -48,7 +48,8 @@
       onError('Произошла ошибка соединения', 'error');
     });
     xhr.addEventListener('timeout', function () {
-      onError(('Запрос не успел выполниться за ' + xhr.timeout + 'мс'), 'error');
+      var message = 'Запрос не успел выполниться за ' + xhr.timeout + 'мс';
+      onError(message, 'error');
     });
 
     xhr.open('GET', url);
