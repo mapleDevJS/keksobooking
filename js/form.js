@@ -68,8 +68,8 @@
     avatar.setAttribute('accept', 'image/*');
   };
 
-  var onError = function () {
-    window.message.show('error');
+  var onError = function (errorText) {
+    window.message.show(errorText);
     var errorButton = document.querySelector('.error__button');
     errorButton.addEventListener('click', window.message.close);
     document.addEventListener('click', window.message.close);
@@ -77,7 +77,7 @@
   };
 
   var onSuccess = function () {
-    window.message.show('success');
+    window.message.show('', 'success');
     document.addEventListener('click', window.message.close);
     document.addEventListener('keydown', window.message.close);
     disable();

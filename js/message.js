@@ -8,9 +8,11 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successMessage = successTemplate.cloneNode(true);
 
-  var show = function (result) {
-    switch (result) {
+  var show = function (message, status) {
+    switch (status) {
       case 'error':
+        console.log(status);
+        errorMessage.querySelector('.error__message').textContent = message;
         main.appendChild(errorMessage);
         break;
       case 'success':

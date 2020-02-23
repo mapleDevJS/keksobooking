@@ -6,7 +6,7 @@
     POST: 'https://js.dump.academy/keksobooking'
   };
 
-  var TIMEOUT_IN_MS = 10000;
+  var TIMEOUT_IN_MS = 5000;
 
   var serverStatus = {
     OK: 200
@@ -21,7 +21,8 @@
       if (xhr.status === serverStatus.OK) {
         onLoad(xhr.response);
       } else {
-        onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        var message = 'Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText;
+        onError(message, 'error');
       }
     });
 
@@ -32,20 +33,22 @@
   var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
+    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.addEventListener('load', function () {
+
       if (xhr.status === serverStatus.OK) {
         onLoad(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(('Статус ответа: ' + xhr.status + ' ' + xhr.statusText), 'error');
       }
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      onError('Произошла ошибка соединения', 'error');
     });
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError(('Запрос не успел выполниться за ' + xhr.timeout + 'мс'), 'error');
     });
 
     xhr.open('GET', url);
