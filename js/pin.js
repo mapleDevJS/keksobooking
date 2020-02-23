@@ -29,11 +29,18 @@
     return pin;
   };
 
+  var onPinClick = function (evt) {
+    var index = evt.path[1].id;
+    window.card.render(window.offers[index]);
+  };
+
   var render = function (offers) {
     var fragment = document.createDocumentFragment();
     for (var j = 0; j < offers.length; j++) {
       var pin = create(offers[j]);
+      pin.setAttribute('id', j);
       fragment.appendChild(pin);
+      pin.addEventListener('click', onPinClick);
     }
     mapPins.appendChild(fragment);
   };
@@ -44,26 +51,6 @@
     }
   };
 
-  // var getPositionX = function (pin) {
-  //   return parseInt(pin.style.left.slice(0, -PX_CUT), 10);
-  // };
-  //
-  // var getPositionY = function (pin) {
-  //   return parseInt(pin.style.top.slice(0, -PX_CUT), 10);
-  // };
-
-  // var getCoordinateX = function (pin, pinOffset) {
-  //   return getPositionX(pin) + pinOffset;
-  // };
-  //
-  // var getCoordinateY = function (pin, pinOffset) {
-  //   return getPositionY(pin) + pinOffset;
-  // };
-
-  // var mainPinDefault = {
-  //   x: getPositionX(mainPin),
-  //   y: getPositionY(mainPin)
-  // };
 
   var setPositionOnMap = function (pin, x, y) {
     pin.style.left = x + 'px';

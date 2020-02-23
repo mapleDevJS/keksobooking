@@ -8,11 +8,19 @@
   var inputs = form.querySelectorAll('input');
   var selects = form.querySelectorAll('select');
   var mapFilters = document.querySelector('.map__filters');
+  var avatar = document.querySelector('#avatar');
   var address = form.querySelector('#address');
-  var numberOfRoomsSelect = form.querySelector('#room_number');
-  var numberOfGuestsSelect = form.querySelector('#capacity');
-  var roomsNumber = numberOfRoomsSelect.value;
-  var guestsNumber = numberOfGuestsSelect.value;
+  var title = form.querySelector('#title');
+  var type = form.querySelector('#type');
+  var price = form.querySelector('#price');
+  var timein = form.querySelector('#timein');
+  var timeout = form.querySelector('#timeout');
+  var roomsNumber = form.querySelector('#room_number');
+  var guestsNumber = form.querySelector('#capacity');
+  var images = form.querySelector('#images');
+  // var guestsNumber = form.querySelector('#capacity');
+  // var roomsNumber = numberOfRoomsSelect.value;
+  // var guestsNumber = numberOfGuestsSelect.value;
   var submitButton = form.querySelector('.ad-form__submit');
   var resetButton = form.querySelector('.ad-form__reset');
 
@@ -24,7 +32,7 @@
 
   var fillAddressInput = function () {
     var x = mainPin.offsetLeft + window.pin.offset.MAIN_PIN.X;
-    var y = mainPin.offsetTop + window.pin.offset.MAIN_PIN.Y
+    var y = mainPin.offsetTop + window.pin.offset.MAIN_PIN.Y;
     address.value = x + ', ' + y;
   };
 
@@ -38,6 +46,7 @@
       }
     }
     mapFilters.setAttribute('disabled', 'disabled');
+    address.setAttribute('readonly', 'readonly');
   };
 
   var activate = function () {
@@ -49,6 +58,14 @@
       }
     }
     mapFilters.removeAttribute('disabled');
+    title.setAttribute('required', 'required');
+    title.setAttribute('minlength', window.data.amount.TITLE.MIN);
+    title.setAttribute('maxlength', window.data.amount.TITLE.MAX);
+    price.setAttribute('required', 'required');
+    price.setAttribute('max', window.data.amount.PRICE.MAX);
+    price.setAttribute('placeholder', window.data.PROPERTIES_MIN_PRICE[type.value]);
+    images.setAttribute('accept', 'image/*');
+    avatar.setAttribute('accept', 'image/*');
   };
 
   var onError = function () {
@@ -66,6 +83,7 @@
     disable();
     window.map.disable();
     form.reset();
+    window.main.pageActivated = false;
   };
 
   var onMouseClick = function (evt) {
@@ -75,7 +93,6 @@
     window.map.disable();
     fillAddressInput();
     window.main.pageActivated = false;
-    console.log(window.main.pageActivated);
   };
 
   var onEnterKeyDown = function (evt) {
@@ -96,16 +113,68 @@
     evt.preventDefault();
   };
 
+  var onRoomOrGuestChange = function () {
+    guestsNumber.setCustomValidity('');
+    switch (roomsNumber.value) {
+      case '1':
+        if (guestsNumber.value !== '1') {
+          guestsNumber.setCustomValidity(window.validation.validityText[roomsNumber.value]);
+        }
+        break;
+      case '2':
+        if (guestsNumber.value === '0' || guestsNumber.value === '3') {
+          guestsNumber.setCustomValidity(window.validation.validityText[roomsNumber.value]);
+        }
+        break;
+      case '3':
+        if (guestsNumber.value === '0') {
+          guestsNumber.setCustomValidity(window.validation.validityText[roomsNumber.value]);
+        }
+        break;
+      case '100':
+        if (guestsNumber.value !== '0') {
+          guestsNumber.setCustomValidity(window.validation.validityText[roomsNumber.value]);
+        }
+        break;
+    }
+  };
+
+  var onTypeOrPriceChange = function () {
+    price.setCustomValidity('');
+    price.setAttribute('placeholder', window.data.PROPERTIES_MIN_PRICE[type.value]);
+    if (parseInt(price.value, 10) < window.data.PROPERTIES_MIN_PRICE[type.value]) {
+      price.setCustomValidity(window.validation.validityText[type.value]);
+    }
+  };
+
+  var onTimeChange = function () {
+    if (parseInt(timeout.value, 10) < parseInt(timein.value, 10)) {
+      timeout.value = timein.value;
+    }
+
+    if (parseInt(timein.value, 10) > parseInt(timeout.value, 10)) {
+      timein.value = timeout.value;
+    }
+  };
+
+  // var onTitleInput = function () {
+  //   title.setCustomValidity('test');
+  // };
+  //
+  // title.addEventListener('invalid', onTitleInput);
+
+  type.addEventListener('change', onTypeOrPriceChange);
+  price.addEventListener('change', onTypeOrPriceChange);
+  timein.addEventListener('change', onTimeChange);
+  timeout.addEventListener('change', onTimeChange);
+  roomsNumber.addEventListener('change', onRoomOrGuestChange);
+  guestsNumber.addEventListener('change', onRoomOrGuestChange);
   form.addEventListener('submit', onFormSubmit);
 
   window.form = {
     disable: disable,
     activate: activate,
     fillAddressInput: fillAddressInput,
-    submitButton: submitButton,
-    roomsNumber: roomsNumber,
-    guestsNumber: guestsNumber,
-    numberOfRoomsSelect: numberOfRoomsSelect,
-    numberOfGuestsSelect: numberOfGuestsSelect
+    submitButton: submitButton
   };
 })();

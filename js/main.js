@@ -8,11 +8,11 @@
     downEvt.preventDefault();
 
     if (downEvt.button === window.utils.key.MOUSE_MAIN) {
-
-      if(!pageActivated) {
+      if (!window.main.pageActivated) {
         window.map.activate();
         window.form.activate();
-      };
+        window.main.pageActivated = true;
+      }
 
       var mouseStartCoord = {
         x: downEvt.clientX,
@@ -49,7 +49,7 @@
         var bottomBorder = window.map.BOTTOM_Y - window.pin.offset.MAIN_PIN.Y;
         mainPinCoord.y = (mainPinCoord.y > bottomBorder) ? bottomBorder : mainPinCoord.y;
 
-        window.pin.setPositionOnMap(mainPin, mainPinCoord.x, mainPinCoord.y)
+        window.pin.setPositionOnMap(mainPin, mainPinCoord.x, mainPinCoord.y);
       };
 
       var onMainButtonMouseUp = function (upEvt) {

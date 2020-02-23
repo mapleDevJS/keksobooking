@@ -14,15 +14,13 @@
       x: mainPin.offsetLeft,
       y: mainPin.offsetTop
     }
-  }
+  };
 
   var activate = function () {
     var onSuccess = function (data) {
       map.classList.remove('map--faded');
-      var offers = window.data.getListOfOffers(data);
-      window.pin.render(offers);
-      window.main.pageActivated = true;
-      console.log(window.main.pageActivated);
+      window.offers = window.data.getListOfOffers(data);
+      window.pin.render(window.offers);
     };
 
     var onError = function (errorMessage) {
