@@ -18,9 +18,6 @@
   var roomsNumber = form.querySelector('#room_number');
   var guestsNumber = form.querySelector('#capacity');
   var images = form.querySelector('#images');
-  // var guestsNumber = form.querySelector('#capacity');
-  // var roomsNumber = numberOfRoomsSelect.value;
-  // var guestsNumber = numberOfGuestsSelect.value;
   var submitButton = form.querySelector('.ad-form__submit');
   var resetButton = form.querySelector('.ad-form__reset');
 
@@ -104,10 +101,6 @@
   resetButton.addEventListener('click', onMouseClick);
   resetButton.addEventListener('keydown', onEnterKeyDown);
 
-  // submitButton.addEventListener('click', function () {
-  //   window.validation.validateRoomsCapacity(roomsNumber, guestsNumber);
-  // });
-
   var onFormSubmit = function (evt) {
     window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
     evt.preventDefault();
@@ -147,26 +140,22 @@
     }
   };
 
-  var onTimeChange = function () {
-    if (parseInt(timeout.value, 10) < parseInt(timein.value, 10)) {
+  var onTimeInChange = function () {
+    if (parseInt(timeout.value, 10) !== parseInt(timein.value, 10)) {
       timeout.value = timein.value;
     }
+  };
 
-    if (parseInt(timein.value, 10) > parseInt(timeout.value, 10)) {
+  var onTimeOutChange = function () {
+    if (parseInt(timein.value, 10) !== parseInt(timeout.value, 10)) {
       timein.value = timeout.value;
     }
   };
 
-  // var onTitleInput = function () {
-  //   title.setCustomValidity('test');
-  // };
-  //
-  // title.addEventListener('invalid', onTitleInput);
-
   type.addEventListener('change', onTypeOrPriceChange);
   price.addEventListener('change', onTypeOrPriceChange);
-  timein.addEventListener('change', onTimeChange);
-  timeout.addEventListener('change', onTimeChange);
+  timein.addEventListener('change', onTimeInChange);
+  timeout.addEventListener('change', onTimeOutChange);
   roomsNumber.addEventListener('change', onRoomOrGuestChange);
   guestsNumber.addEventListener('change', onRoomOrGuestChange);
   form.addEventListener('submit', onFormSubmit);

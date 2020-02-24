@@ -12,7 +12,7 @@
     }
   };
 
-  var mapPins = document.querySelector('.map__pins');
+  var pinsContainer = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
@@ -30,12 +30,11 @@
   };
 
   var onPinClick = function (evt) {
-    if (evt.target.id) {
-      var index = evt.target.id;
-    } else {
-      index = evt.target.closest('button').id;
+    var pin = evt.target.closest('button');
+    if (!pin) {
+      return;
     }
-
+    var index = pin.id;
     window.card.render(window.offers[index]);
   };
 
@@ -44,13 +43,10 @@
     for (var j = 0; j < offers.length; j++) {
       var pin = create(offers[j]);
       pin.setAttribute('id', j);
-      // pin.firstChild.setAttribute('id', j);
       fragment.appendChild(pin);
-      pin.addEventListener('click', onPinClick);
-      // pin.firstChild.addEventListener('click', onPinClick);
     }
-    // mapPins.addEventListener('click', onPinClick);
-    mapPins.appendChild(fragment);
+    pinsContainer.addEventListener('click', onPinClick);
+    pinsContainer.appendChild(fragment);
   };
 
   var remove = function (pins) {
