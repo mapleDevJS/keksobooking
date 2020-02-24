@@ -8,9 +8,10 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successMessage = successTemplate.cloneNode(true);
 
-  var show = function (result) {
-    switch (result) {
+  var show = function (message, status) {
+    switch (status) {
       case 'error':
+        errorMessage.querySelector('.error__message').textContent = message;
         main.appendChild(errorMessage);
         break;
       case 'success':
@@ -20,7 +21,7 @@
   };
 
   var close = function (evt) {
-    if (evt.button === window.utils.key.MOUSE_LEFT || evt.key === window.utils.key.ESCAPE) {
+    if (evt.button === window.utils.key.MOUSE_MAIN || evt.key === window.utils.key.ESCAPE) {
       if (errorMessage) {
         errorMessage.remove();
       }
