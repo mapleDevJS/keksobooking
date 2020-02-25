@@ -30,7 +30,7 @@
   };
 
   var onPinClick = function (evt) {
-    var pin = evt.target.closest('button');
+    var pin = evt.target.closest('button[class=map__pin]');
     if (!pin) {
       return;
     }
@@ -39,14 +39,44 @@
   };
 
   var render = function (offers) {
+
     var fragment = document.createDocumentFragment();
-    for (var j = 0; j < offers.length; j++) {
-      var pin = create(offers[j]);
-      pin.setAttribute('id', j);
-      fragment.appendChild(pin);
+    var lengthDiff = offers.length - window.data.OFFERS_NUMBER;
+    var totalOffers;
+    if (lengthDiff <= 0) {
+      totalOffers = offers.length;
+    } else {
+      totalOffers = window.data.OFFERS_NUMBER;
     }
-    pinsContainer.addEventListener('click', onPinClick);
-    pinsContainer.appendChild(fragment);
+
+    if (totalOffers !== 0) {
+      for (var j = 0; j < totalOffers; j++) {
+        var pin = create(offers[j]);
+        pin.setAttribute('id', j);
+        fragment.appendChild(pin);
+        pinsContainer.addEventListener('click', onPinClick);
+        pinsContainer.appendChild(fragment);
+      }
+    }
+  };
+
+  var update = function (filterValue) {
+    if (filterValue === 'any') {
+      render(window.offers);
+    } else {
+      var filteredOffers = [];
+
+      for (var i = 0; i < window.offers.length; i++) {
+        if (window.offers[i].offer.type === filterValue) {
+          filteredOffers.push(window.offers[i]);
+        }
+      }
+
+      var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      remove(pins);
+      render(filteredOffers);
+    }
+
   };
 
   var remove = function (pins) {
@@ -54,7 +84,6 @@
       pins[i].remove();
     }
   };
-
 
   var setPositionOnMap = function (pin, x, y) {
     pin.style.left = x + 'px';
@@ -67,6 +96,7 @@
     // mainPinDefault: mainPinDefault,
     setPositionOnMap: setPositionOnMap,
     render: render,
+    update: update,
     remove: remove
   };
 })();

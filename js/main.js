@@ -8,11 +8,11 @@
     downEvt.preventDefault();
 
     if (downEvt.button === window.utils.key.MOUSE_MAIN) {
-      // if (!window.main.pageActivated) {
-      //   window.map.activate();
-      //   window.form.activate();
-      //   window.main.pageActivated = true;
-      // }
+      if (!window.main.pageActivated) {
+        window.map.activate();
+        window.form.activate();
+        window.main.pageActivated = true;
+      }
 
       var mouseStartCoord = {
         x: downEvt.clientX,
@@ -47,11 +47,11 @@
 
       var onMainButtonMouseUp = function (upEvt) {
         upEvt.preventDefault();
-        if (!window.main.pageActivated) {
-          window.map.activate();
-          window.form.activate();
-          window.main.pageActivated = true;
-        }
+        // if (!window.main.pageActivated) {
+        //   window.map.activate();
+        //   window.form.activate();
+        //   window.main.pageActivated = true;
+        // }
 
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMainButtonMouseUp);

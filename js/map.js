@@ -26,7 +26,8 @@
   var activate = function () {
     var onSuccess = function (data) {
       map.classList.remove('map--faded');
-      window.offers = window.data.getListOfOffers(data);
+      // window.offers = window.data.getListOfOffers(data);
+      window.offers = data;
       window.pin.render(window.offers);
     };
 

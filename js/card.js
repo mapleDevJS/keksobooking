@@ -30,11 +30,13 @@
   };
 
   var close = function (evt) {
-    if (evt.key === window.utils.key.ESCAPE || evt.button === window.utils.key.MOUSE_MAIN) {
+    if (evt.key === window.utils.key.ESCAPE || evt.button === window.utils.key.MOUSE_MAIN || evt.type === 'change') {
       var mapCard = document.querySelector('.map__card');
-      mapCard.remove();
-      removeEventListener('click', close);
-      removeEventListener('keydown', close);
+      if (mapCard) {
+        mapCard.remove();
+        removeEventListener('click', close);
+        removeEventListener('keydown', close);
+      }
     }
   };
 
@@ -52,6 +54,7 @@
 
   window.card = {
     create: create,
-    render: render
+    render: render,
+    close: close
   };
 })();

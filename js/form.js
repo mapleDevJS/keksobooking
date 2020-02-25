@@ -7,7 +7,7 @@
   var fieldsets = form.querySelectorAll('fieldset');
   var inputs = form.querySelectorAll('input');
   var selects = form.querySelectorAll('select');
-  var mapFilters = document.querySelector('.map__filters');
+  // var mapFilters = document.querySelector('.map__filters');
   var avatar = document.querySelector('#avatar');
   var address = form.querySelector('#address');
   var title = form.querySelector('#title');
@@ -42,7 +42,7 @@
         element[j].setAttribute('disabled', 'disabled');
       }
     }
-    mapFilters.setAttribute('disabled', 'disabled');
+    window.filters.disable();
     address.setAttribute('readonly', 'readonly');
   };
 
@@ -54,7 +54,7 @@
         element[j].removeAttribute('disabled');
       }
     }
-    mapFilters.removeAttribute('disabled');
+    window.filters.activate();
     title.setAttribute('required', 'required');
     title.setAttribute('minlength', window.data.amount.TITLE.MIN);
     title.setAttribute('maxlength', window.data.amount.TITLE.MAX);
@@ -85,6 +85,7 @@
 
   var onMouseClick = function (evt) {
     evt.preventDefault();
+    window.card.close(evt);
     form.reset();
     disable();
     window.map.disable();
