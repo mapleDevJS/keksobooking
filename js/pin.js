@@ -42,12 +42,7 @@
 
     var fragment = document.createDocumentFragment();
     var lengthDiff = offers.length - window.data.OFFERS_NUMBER;
-    var totalOffers;
-    if (lengthDiff <= 0) {
-      totalOffers = offers.length;
-    } else {
-      totalOffers = window.data.OFFERS_NUMBER;
-    }
+    var totalOffers = (lengthDiff <= 0) ? offers.length : window.data.OFFERS_NUMBER;
 
     if (totalOffers !== 0) {
       for (var j = 0; j < totalOffers; j++) {

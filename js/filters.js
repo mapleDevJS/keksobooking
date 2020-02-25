@@ -5,13 +5,12 @@
   var selects = filters.querySelectorAll('.map__filter');
   var type = filters.querySelector('#housing-type');
 
+  var disableSelect = function (item) {
+    item.setAttribute('disabled', 'disabled');
+  };
+
   var disable = function () {
     filters.setAttribute('disabled', 'disabled');
-
-    var disableSelect = function (item) {
-      item.setAttribute('disabled', 'disabled');
-    };
-
     selects.forEach(disableSelect);
   };
 
