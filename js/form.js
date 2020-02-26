@@ -7,7 +7,7 @@
   var fieldsets = form.querySelectorAll('fieldset');
   var inputs = form.querySelectorAll('input');
   var selects = form.querySelectorAll('select');
-  var mapFilters = document.querySelector('.map__filters');
+  // var mapFilters = document.querySelector('.map__filters');
   var avatar = document.querySelector('#avatar');
   var address = form.querySelector('#address');
   var title = form.querySelector('#title');
@@ -42,7 +42,7 @@
         element[j].setAttribute('disabled', 'disabled');
       }
     }
-    mapFilters.setAttribute('disabled', 'disabled');
+    window.filter.disable();
     address.setAttribute('readonly', 'readonly');
   };
 
@@ -54,7 +54,7 @@
         element[j].removeAttribute('disabled');
       }
     }
-    mapFilters.removeAttribute('disabled');
+    window.filter.activate();
     title.setAttribute('required', 'required');
     title.setAttribute('minlength', window.data.amount.TITLE.MIN);
     title.setAttribute('maxlength', window.data.amount.TITLE.MAX);
@@ -66,17 +66,17 @@
   };
 
   var onError = function (errorText) {
-    window.message.show(errorText);
+    window.message.show(errorText, 'error');
     var errorButton = document.querySelector('.error__button');
-    errorButton.addEventListener('click', window.message.close);
-    document.addEventListener('click', window.message.close);
-    document.addEventListener('keydown', window.message.close);
+    errorButton.addEventListener('click', window.main.onErrorButtonClick);
+    document.addEventListener('click', window.main.onMainButtonClick);
+    document.addEventListener('keydown', window.main.onEscapeKeyDown);
   };
 
   var onSuccess = function () {
     window.message.show('', 'success');
-    document.addEventListener('click', window.message.close);
-    document.addEventListener('keydown', window.message.close);
+    document.addEventListener('click', window.main.onMainButtonClick);
+    document.addEventListener('keydown', window.main.onEscapeKeyDown);
     disable();
     window.map.disable();
     form.reset();
@@ -85,10 +85,11 @@
 
   var onMouseClick = function (evt) {
     evt.preventDefault();
+    window.card.close();
     form.reset();
     disable();
-    window.map.disable();
     fillAddressInput();
+    window.map.disable();
     window.main.pageActivated = false;
   };
 
@@ -102,8 +103,8 @@
   resetButton.addEventListener('keydown', onEnterKeyDown);
 
   var onFormSubmit = function (evt) {
-    window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
     evt.preventDefault();
+    window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
   };
 
   var onRoomOrGuestChange = function () {

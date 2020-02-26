@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var OFFERS_NUMBER = 8;
+  var OFFERS_NUMBER = 5;
   // var PROPERTIES_TYPE = [
   //   'palace',
   //   'flat',

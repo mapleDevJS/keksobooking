@@ -7,8 +7,6 @@
     ESCAPE: 'Escape'
   };
 
-  // var LENGTH_OF_SLICE = 2;
-
   var getRandomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)];
   };
