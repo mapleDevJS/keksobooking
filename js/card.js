@@ -29,14 +29,24 @@
     return card;
   };
 
-  var close = function (evt) {
-    if (evt.key === window.utils.key.ESCAPE || evt.button === window.utils.key.MOUSE_MAIN || evt.type === 'change') {
-      var mapCard = document.querySelector('.map__card');
-      if (mapCard) {
-        mapCard.remove();
-        removeEventListener('click', close);
-        removeEventListener('keydown', close);
-      }
+  var close = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+      removeEventListener('click', onMainButtonClick);
+      removeEventListener('keydown', onEscapeKeyDown);
+    }
+  };
+
+  var onMainButtonClick = function (evt) {
+    if (evt.button === window.utils.key.MOUSE_MAIN) {
+      close();
+    }
+  };
+
+  var onEscapeKeyDown = function (evt) {
+    if (evt.key === window.utils.key.ESCAPE) {
+      close();
     }
   };
 
@@ -48,8 +58,8 @@
     }
     map.insertBefore(card, mapFiltersContainer);
     var buttonClose = document.querySelector('.popup__close');
-    buttonClose.addEventListener('click', close);
-    document.addEventListener('keydown', close);
+    buttonClose.addEventListener('click', onMainButtonClick);
+    document.addEventListener('keydown', onEscapeKeyDown);
   };
 
   window.card = {

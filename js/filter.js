@@ -24,14 +24,14 @@
     selects.forEach(activateSelect);
   };
 
-  var onTypeChange = function (evt) {
-    window.card.close(evt);
+  var onTypeChange = function () {
+    window.card.close();
     window.pin.update(type.value);
   };
 
   type.addEventListener('change', onTypeChange);
 
-  window.filters = {
+  window.filter = {
     disable: disable,
     activate: activate
   };

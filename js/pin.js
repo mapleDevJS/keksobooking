@@ -12,14 +12,22 @@
     }
   };
 
-  var pinsContainer = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
+
+  var mainPinPosition = {
+    DEFAULT: {
+      x: mainPin.offsetLeft,
+      y: mainPin.offsetTop
+    }
+  };
+
+  var pinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var create = function (offer) {
     var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x + offset.PIN.X;
-    var pinY = offer.location.y + offset.PIN.Y;
+    var pinX = offer.location.x - offset.PIN.X;
+    var pinY = offer.location.y - offset.PIN.Y;
     pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
     var pinAvatar = pin.querySelector('img');
@@ -56,40 +64,44 @@
   };
 
   var update = function (filterValue) {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     if (filterValue === 'any') {
+      remove(pins);
       render(window.offers);
     } else {
       var filteredOffers = [];
-
       for (var i = 0; i < window.offers.length; i++) {
         if (window.offers[i].offer.type === filterValue) {
           filteredOffers.push(window.offers[i]);
         }
       }
-
-      var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
       remove(pins);
       render(filteredOffers);
     }
-
   };
 
   var remove = function (pins) {
     for (var i = 0; i < pins.length; i++) {
       pins[i].remove();
     }
+    pinsContainer.removeEventListener('click', onPinClick);
   };
 
-  var setPositionOnMap = function (pin, x, y) {
+  var setPosition = function (pin, x, y) {
     pin.style.left = x + 'px';
     pin.style.top = y + 'px';
+  };
+
+  var resetMainPin = function () {
+    mainPin.style.left = mainPinPosition.DEFAULT.x + 'px';
+    mainPin.style.top = mainPinPosition.DEFAULT.y + 'px';
   };
 
   window.pin = {
     offset: offset,
     mainPin: mainPin,
-    // mainPinDefault: mainPinDefault,
-    setPositionOnMap: setPositionOnMap,
+    setPosition: setPosition,
+    resetMainPin: resetMainPin,
     render: render,
     update: update,
     remove: remove

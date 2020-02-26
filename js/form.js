@@ -42,7 +42,7 @@
         element[j].setAttribute('disabled', 'disabled');
       }
     }
-    window.filters.disable();
+    window.filter.disable();
     address.setAttribute('readonly', 'readonly');
   };
 
@@ -54,7 +54,7 @@
         element[j].removeAttribute('disabled');
       }
     }
-    window.filters.activate();
+    window.filter.activate();
     title.setAttribute('required', 'required');
     title.setAttribute('minlength', window.data.amount.TITLE.MIN);
     title.setAttribute('maxlength', window.data.amount.TITLE.MAX);
@@ -66,17 +66,17 @@
   };
 
   var onError = function (errorText) {
-    window.message.show(errorText);
+    window.message.show(errorText, 'error');
     var errorButton = document.querySelector('.error__button');
-    errorButton.addEventListener('click', window.message.close);
-    document.addEventListener('click', window.message.close);
-    document.addEventListener('keydown', window.message.close);
+    errorButton.addEventListener('click', window.main.onErrorButtonClick);
+    document.addEventListener('click', window.main.onMainButtonClick);
+    document.addEventListener('keydown', window.main.onEscapeKeyDown);
   };
 
   var onSuccess = function () {
     window.message.show('', 'success');
-    document.addEventListener('click', window.message.close);
-    document.addEventListener('keydown', window.message.close);
+    document.addEventListener('click', window.main.onMainButtonClick);
+    document.addEventListener('keydown', window.main.onEscapeKeyDown);
     disable();
     window.map.disable();
     form.reset();
@@ -85,11 +85,11 @@
 
   var onMouseClick = function (evt) {
     evt.preventDefault();
-    window.card.close(evt);
+    window.card.close();
     form.reset();
     disable();
-    window.map.disable();
     fillAddressInput();
+    window.map.disable();
     window.main.pageActivated = false;
   };
 
@@ -103,8 +103,8 @@
   resetButton.addEventListener('keydown', onEnterKeyDown);
 
   var onFormSubmit = function (evt) {
-    window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
     evt.preventDefault();
+    window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
   };
 
   var onRoomOrGuestChange = function () {

@@ -1,6 +1,16 @@
 'use strict';
 
 (function () {
+  var text = {
+    ERROR: 'Произошла ошибка соединения',
+    RESPONSE: 'Статус ответа: ',
+    TIMEOUT: 'Превышено время ожидания данных '
+  };
+
+  var time = {
+    si: 'мс'
+  };
+
   var main = document.querySelector('main');
 
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -8,10 +18,10 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successMessage = successTemplate.cloneNode(true);
 
-  var show = function (message, status) {
+  var show = function (textMessage, status) {
     switch (status) {
       case 'error':
-        errorMessage.querySelector('.error__message').textContent = message;
+        errorMessage.querySelector('.error__message').textContent = textMessage;
         main.appendChild(errorMessage);
         break;
       case 'success':
@@ -29,14 +39,22 @@
       if (successMessage) {
         successMessage.remove();
       }
-
-      document.removeEventListener('keydown', close);
-      document.removeEventListener('click', close);
     }
   };
 
+  var atLoad = function (request) {
+    return text.RESPONSE + request.status + ' ' + request.statusText;
+  };
+
+  var atTimeout = function (request) {
+    return text.TIMEOUT + request.timeout + time.si;
+  };
+
   window.message = {
+    text: text,
     show: show,
-    close: close
+    close: close,
+    atLoad: atLoad,
+    atTimeout: atTimeout
   };
 })();
