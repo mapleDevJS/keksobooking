@@ -43,7 +43,7 @@
   var priceRange = {
     'low': {
       from: 0,
-      to: 1000
+      to: 10000
     },
     'middle': {
       from: 10000,
@@ -56,24 +56,26 @@
   };
 
   var filterByType = function (ad) {
-    return (filterValues.type === 'any') ? ad : (ad.offer.type === filterValues.type);
+    return (filterValues.type === 'any') ? true : (filterValues.type === ad.offer.type);
   };
 
   var filterByPrice = function (ad) {
-    return (filterValues.price === 'any') ? ad : ad.offer.price >= priceRange[filterValues.price].from && ad.offer.price < priceRange[filterValues.price].to;
+    return (filterValues.price === 'any') ? true : (ad.offer.price >= priceRange[filterValues.price].from && ad.offer.price < priceRange[filterValues.price].to);
   };
 
   var filterByRooms = function (ad) {
-    return (filterValues.rooms === 'any') ? ad : ad.offer.rooms === parseInt(filterValues.rooms, 10);
+    return (filterValues.rooms === 'any') ? true : (parseInt(filterValues.rooms, 10) === ad.offer.rooms);
   };
 
   var filterByGuests = function (ad) {
-    return (filterValues.guests === 'any') ? ad : ad.offer.guests === parseInt(filterValues.guests, 10);
+    return (filterValues.guests === 'any') ? true : (parseInt(filterValues.guests, 10) === ad.offer.guests);
   };
 
-  var filterByFeatures = function (advert) {
+  var filterByFeatures = function (ad) {
+    // console.log(filterValues.features + ' || ' + ad.offer.features);
+    // console.log('--------------------------------------------------');
     return filterValues.features.every(function (feature) {
-      return advert.offer.features.includes(feature);
+      return ad.offer.features.includes(feature);
     });
   };
 
@@ -93,13 +95,12 @@
       });
     }
 
-    var filteredOffers = window.offers.
-    filter(window.filter.filterByType).
-    filter(window.filter.filterByPrice).
-    filter(window.filter.filterByRooms).
-    filter(window.filter.filterByGuests).
-    filter(window.filter.filterByFeatures);
+    var filterOffers = function (ad) {
+      return filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad);
+    };
 
+    var filteredOffers = window.offers.filter(filterOffers);
+    // console.log(filteredOffers);
     window.pin.update(filteredOffers);
   };
   window.filter = {
