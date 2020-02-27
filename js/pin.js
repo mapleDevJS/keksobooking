@@ -67,7 +67,6 @@
   };
 
   window.pin = {
-    offset: offset,
     setPosition: setPosition,
     render: render,
     update: update,

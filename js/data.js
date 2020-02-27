@@ -16,6 +16,15 @@
     bungalo: 0
   };
 
+  var FEATURES_RU = {
+    wifi: 'Беспроводной интернет',
+    dishwasher: 'Посудомойка',
+    parking: 'Парковка',
+    washer: 'Стиральная машина',
+    elevator: 'Лифт',
+    conditioner: 'Кондиционер',
+  };
+
   var amount = {
     ROOM: {
       MAX: 100,
@@ -32,15 +41,6 @@
       MIN: 30,
       MAX: 100
     }
-  };
-
-  var FEATURES_RU = {
-    wifi: 'Беспроводной интернет',
-    dishwasher: 'Посудомойка',
-    parking: 'Парковка',
-    washer: 'Стиральная машина',
-    elevator: 'Лифт',
-    conditioner: 'Кондиционер',
   };
 
   var getEndingsRooms = function (number) {
@@ -73,10 +73,6 @@
     return imgTags;
   };
 
-  var getListOfOffers = function (data) {
-    return window.utils.getMultipleRandomElements(data, OFFERS_NUMBER);
-  };
-
   window.data = {
     OFFERS_NUMBER: OFFERS_NUMBER,
     PROPERTIES_TYPE_RU: PROPERTIES_TYPE_RU,
@@ -84,7 +80,6 @@
     FEATURES_RU: FEATURES_RU,
     amount: amount,
     generateTextRoomsAndGuests: generateTextRoomsAndGuests,
-    generatePhotos: generatePhotos,
-    getListOfOffers: getListOfOffers
+    generatePhotos: generatePhotos
   };
 })();

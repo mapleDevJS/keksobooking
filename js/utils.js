@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var keyCode = {
+  var KeyCode = {
     MOUSE_MAIN: 0,
     ENTER: 13,
     ESCAPE: 27
@@ -24,8 +24,7 @@
   };
 
   window.utils = {
-    keyCode: keyCode,
-    getRandomElement: getRandomElement,
+    KeyCode: KeyCode,
     getMultipleRandomElements: getMultipleRandomElements
   };
 })();

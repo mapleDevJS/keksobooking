@@ -17,7 +17,6 @@
   var roomsNumber = form.querySelector('#room_number');
   var guestsNumber = form.querySelector('#capacity');
   var images = form.querySelector('#images');
-  // var submitButton = form.querySelector('.ad-form__submit');
   var resetButton = form.querySelector('.ad-form__reset');
 
   var formElements = [
@@ -82,7 +81,7 @@
   };
 
   var onMainMouseButtonClick = function (evt) {
-    if (evt.button === window.utils.keyCode.MOUSE_MAIN) {
+    if (evt.button === window.utils.KeyCode.MOUSE_MAIN) {
       evt.preventDefault();
       window.card.close();
       form.reset();
@@ -94,7 +93,7 @@
   };
 
   var onEnterKeyDown = function (evt) {
-    if (evt.keyCode === window.utils.keyCode.ENTER) {
+    if (evt.KeyCode === window.utils.KeyCode.ENTER) {
       onMainMouseButtonClick();
     }
   };
@@ -104,7 +103,7 @@
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(window.backend.serverUrl.POST, new FormData(form), onSuccess, onError);
+    window.backend.save(window.backend.ServerUrl.POST, new FormData(form), onSuccess, onError);
   };
 
   var onRoomOrGuestChange = function () {
@@ -165,6 +164,5 @@
     disable: disable,
     activate: activate,
     fillAddressInput: fillAddressInput
-    // submitButton: submitButton
   };
 })();

@@ -72,8 +72,6 @@
   };
 
   var filterByFeatures = function (ad) {
-    // console.log(filterValues.features + ' || ' + ad.offer.features);
-    // console.log('--------------------------------------------------');
     return filterValues.features.every(function (feature) {
       return ad.offer.features.includes(feature);
     });
@@ -100,18 +98,10 @@
     };
 
     var filteredOffers = window.offers.filter(filterOffers);
-    // console.log(filteredOffers);
     window.pin.update(filteredOffers);
   };
   window.filter = {
     disable: disable,
-    activate: activate,
-    filterValues: filterValues,
-    filterByType: filterByType,
-    filterByPrice: filterByPrice,
-    filterByRooms: filterByRooms,
-    filterByGuests: filterByGuests,
-    filterByFeatures: filterByFeatures,
-    onFiltersChange: onFiltersChange
+    activate: activate
   };
 })();
