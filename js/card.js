@@ -39,13 +39,13 @@
   };
 
   var onMainButtonClick = function (evt) {
-    if (evt.button === window.utils.key.MOUSE_MAIN) {
+    if (evt.button === window.utils.KeyCode.MOUSE_MAIN) {
       close();
     }
   };
 
   var onEscapeKeyDown = function (evt) {
-    if (evt.key === window.utils.key.ESCAPE) {
+    if (evt.KeyCode === window.utils.KeyCode.ESCAPE) {
       close();
     }
   };
@@ -63,7 +63,6 @@
   };
 
   window.card = {
-    create: create,
     render: render,
     close: close
   };

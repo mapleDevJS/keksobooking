@@ -30,15 +30,13 @@
     }
   };
 
-  var close = function (evt) {
-    if (evt.button === window.utils.key.MOUSE_MAIN || evt.key === window.utils.key.ESCAPE) {
-      if (errorMessage) {
-        errorMessage.remove();
-      }
+  var close = function () {
+    if (errorMessage) {
+      errorMessage.remove();
+    }
 
-      if (successMessage) {
-        successMessage.remove();
-      }
+    if (successMessage) {
+      successMessage.remove();
     }
   };
 
