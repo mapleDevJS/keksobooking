@@ -1,19 +1,20 @@
 'use strict';
 
 (function () {
+  var map = document.querySelector('.map');
 
-  var WIDTH = 1200;
-  var TOP = 130;
-  var BOTTOM = 630;
-
-  var limit = {
-    TOP: TOP - window.pin.offset.MAIN_PIN.Y,
-    RIGHT: WIDTH - window.pin.offset.MAIN_PIN.X,
-    BOTTOM: BOTTOM - window.pin.offset.MAIN_PIN.Y,
-    LEFT: -window.pin.offset.MAIN_PIN.X
+  var sizes = {
+    WIDTH: 1200,
+    TOP: 130,
+    BOTTOM: 630
   };
 
-  var map = document.querySelector('.map');
+  var limit = {
+    TOP: sizes.TOP - window.mainpin.offset.Y,
+    RIGHT: sizes.WIDTH - window.mainpin.offset.X,
+    BOTTOM: sizes.BOTTOM - window.mainpin.offset.Y,
+    LEFT: -window.mainpin.offset.X
+  };
 
   var activate = function () {
     map.classList.remove('map--faded');
@@ -22,7 +23,7 @@
   var disable = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.pin.remove(pins);
-    window.pin.resetMainPin();
+    window.mainpin.reset();
     map.classList.add('map--faded');
   };
 

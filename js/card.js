@@ -39,13 +39,13 @@
   };
 
   var onMainButtonClick = function (evt) {
-    if (evt.button === window.utils.key.MOUSE_MAIN) {
+    if (evt.button === window.utils.keyCode.MOUSE_MAIN) {
       close();
     }
   };
 
   var onEscapeKeyDown = function (evt) {
-    if (evt.key === window.utils.key.ESCAPE) {
+    if (evt.keyCode === window.utils.keyCode.ESCAPE) {
       close();
     }
   };
