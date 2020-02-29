@@ -2,30 +2,31 @@
 
 (function () {
   var OFFERS_NUMBER = 5;
-  var PROPERTIES_TYPE_RU = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalo: 'Бунгало'
+
+  var Properties = {
+    TYPE_RU: {
+      palace: 'Дворец',
+      flat: 'Квартира',
+      house: 'Дом',
+      bungalo: 'Бунгало'
+    },
+    MIN_PRICE: {
+      palace: 10000,
+      flat: 1000,
+      house: 5000,
+      bungalo: 0
+    },
+    FEATURES_RU: {
+      wifi: 'Беспроводной интернет',
+      dishwasher: 'Посудомойка',
+      parking: 'Парковка',
+      washer: 'Стиральная машина',
+      elevator: 'Лифт',
+      conditioner: 'Кондиционер'
+    }
   };
 
-  var PROPERTIES_MIN_PRICE = {
-    palace: 10000,
-    flat: 1000,
-    house: 5000,
-    bungalo: 0
-  };
-
-  var FEATURES_RU = {
-    wifi: 'Беспроводной интернет',
-    dishwasher: 'Посудомойка',
-    parking: 'Парковка',
-    washer: 'Стиральная машина',
-    elevator: 'Лифт',
-    conditioner: 'Кондиционер',
-  };
-
-  var amount = {
+  var Amount = {
     ROOM: {
       MAX: 100,
       MIN: 1
@@ -36,10 +37,6 @@
     },
     PRICE: {
       MAX: 1000000
-    },
-    TITLE: {
-      MIN: 30,
-      MAX: 100
     }
   };
 
@@ -75,10 +72,8 @@
 
   window.data = {
     OFFERS_NUMBER: OFFERS_NUMBER,
-    PROPERTIES_TYPE_RU: PROPERTIES_TYPE_RU,
-    PROPERTIES_MIN_PRICE: PROPERTIES_MIN_PRICE,
-    FEATURES_RU: FEATURES_RU,
-    amount: amount,
+    Properties: Properties,
+    Amount: Amount,
     generateTextRoomsAndGuests: generateTextRoomsAndGuests,
     generatePhotos: generatePhotos
   };

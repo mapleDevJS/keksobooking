@@ -26,7 +26,7 @@
     };
 
     var onXhrError = function () {
-      onError(window.message.text.ERROR, 'error');
+      onError(window.message.Text.ERROR, 'error');
     };
 
     var onXhrTimeout = function () {
@@ -55,7 +55,7 @@
     };
 
     var onXhrError = function () {
-      onError(window.message.text.ERROR, 'error');
+      onError(window.message.Text.ERROR, 'error');
     };
 
     var onXhrTimeout = function () {

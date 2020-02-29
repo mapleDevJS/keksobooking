@@ -1,41 +1,36 @@
 'use strict';
 
 (function () {
-  var filterElements = document.querySelector('.map__filters');
-  var selects = filterElements.querySelectorAll('.map__filter');
-  var typeElement = filterElements.querySelector('#housing-type');
-  var priceElement = filterElements.querySelector('#housing-price');
-  var roomsElement = filterElements.querySelector('#housing-rooms');
-  var guestsElement = filterElements.querySelector('#housing-guests');
-  // var featuresElement = filterElements.querySelector('#housing-features');
-
-  var disableSelect = function (select) {
-    select.setAttribute('disabled', 'disabled');
-  };
+  var filterNode = document.querySelector('.map__filters');
+  var selects = filterNode.querySelectorAll('.map__filter');
+  var typeNode = filterNode.querySelector('#housing-type');
+  var priceNode = filterNode.querySelector('#housing-price');
+  var roomsNode = filterNode.querySelector('#housing-rooms');
+  var guestsNode = filterNode.querySelector('#housing-guests');
 
   var disable = function () {
-    filterElements.setAttribute('disabled', 'disabled');
-    selects.forEach(disableSelect);
-    filterElements.removeEventListener('change', onFiltersChange);
+    filterNode.reset();
+    filterNode.setAttribute('disabled', 'disabled');
+    filterNode.removeEventListener('change', onFiltersChange);
   };
 
   var activate = function () {
-    filterElements.removeAttribute('disabled');
+    filterNode.removeAttribute('disabled');
 
     var activateSelect = function (select) {
       select.removeAttribute('disabled');
     };
 
     selects.forEach(activateSelect);
-    filterElements.addEventListener('change', onFiltersChange);
+    filterNode.addEventListener('change', window.debounce(onFiltersChange));
   };
 
   var filterValues = {
-    type: typeElement.value,
-    price: priceElement.value,
-    rooms: roomsElement.value,
-    guests: guestsElement.value,
-    features: Array.from(filterElements.querySelectorAll('input:checked')).map(function (advert) {
+    type: typeNode.value,
+    price: priceNode.value,
+    rooms: roomsNode.value,
+    guests: guestsNode.value,
+    features: Array.from(filterNode.querySelectorAll('input:checked')).map(function (advert) {
       return advert.value;
     })
   };
@@ -79,16 +74,16 @@
 
   var onFiltersChange = function (evt) {
 
-    if (evt.target.id === typeElement.id) {
+    if (evt.target.id === typeNode.id) {
       filterValues.type = evt.target.value;
-    } else if (evt.target.id === priceElement.id) {
+    } else if (evt.target.id === priceNode.id) {
       filterValues.price = evt.target.value;
-    } else if (evt.target.id === roomsElement.id) {
+    } else if (evt.target.id === roomsNode.id) {
       filterValues.rooms = evt.target.value;
-    } else if (evt.target.id === guestsElement.id) {
+    } else if (evt.target.id === guestsNode.id) {
       filterValues.guests = evt.target.value;
     } else if (evt.target.id === ('filter-' + evt.target.value)) {
-      filterValues.features = Array.from(filterElements.querySelectorAll('input:checked')).map(function (advert) {
+      filterValues.features = Array.from(filterNode.querySelectorAll('input:checked')).map(function (advert) {
         return advert.value;
       });
     }
@@ -99,7 +94,9 @@
 
     var filteredOffers = window.offers.filter(filterOffers);
     window.pin.update(filteredOffers);
+
   };
+
   window.filter = {
     disable: disable,
     activate: activate

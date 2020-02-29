@@ -1,27 +1,27 @@
 'use strict';
 
 (function () {
-  var offset = {
+  var Offset = {
     X: 31,
     Y: 84
   };
 
-  var mainPin = document.querySelector('.map__pin--main');
+  var mainPinNode = document.querySelector('.map__pin--main');
 
-  var position = {
+  var Position = {
     DEFAULT: {
-      x: mainPin.offsetLeft,
-      y: mainPin.offsetTop
+      x: mainPinNode.offsetLeft,
+      y: mainPinNode.offsetTop
     }
   };
 
   var reset = function () {
-    mainPin.style.left = position.DEFAULT.x + 'px';
-    mainPin.style.top = position.DEFAULT.y + 'px';
+    mainPinNode.style.left = Position.DEFAULT.x + 'px';
+    mainPinNode.style.top = Position.DEFAULT.y + 'px';
   };
 
   window.mainpin = {
-    offset: offset,
+    Offset: Offset,
     reset: reset
   };
 })();
