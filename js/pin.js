@@ -1,33 +1,41 @@
 'use strict';
 
 (function () {
-  var pinsContainer = document.querySelector('.map__pins');
-  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var containerNode = document.querySelector('.map__pins');
+  var templateNode = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var offset = {
+  var Offset = {
     X: 20,
     Y: 70
   };
 
   var create = function (offer) {
-    var pin = pinTemplate.cloneNode(true);
-    var pinX = offer.location.x - offset.X;
-    var pinY = offer.location.y - offset.Y;
-    pin.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
-    var avatar = pin.querySelector('img');
-    avatar.src = offer.author.avatar;
-    avatar.alt = offer.offer.title;
+    var pinNode = templateNode.cloneNode(true);
+    var pinX = offer.location.x - Offset.X;
+    var pinY = offer.location.y - Offset.Y;
+    pinNode.style = 'left: ' + pinX + 'px; top: ' + pinY + 'px;';
 
-    return pin;
+    var avatarNode = pinNode.querySelector('img');
+    avatarNode.src = offer.author.avatar;
+    avatarNode.alt = offer.offer.title;
+
+    return pinNode;
   };
 
   var onPinClick = function (evt) {
-    var pin = evt.target.closest('button[class=map__pin]');
-    if (!pin) {
+    var pinNode = evt.target.closest('.map__pin:not(.map__pin--main)');
+    if (!pinNode) {
       return;
     }
-    window.card.render(window.offers[pin.id]);
+
+    var activePinNode = containerNode.querySelector('.map__pin--active');
+    if (activePinNode) {
+      activePinNode.classList.remove('map__pin--active');
+    }
+
+    pinNode.classList.add('map__pin--active');
+    window.card.render(window.offers[pinNode.id]);
   };
 
   var render = function (offers) {
@@ -38,19 +46,21 @@
 
     if (totalOffers !== 0) {
       for (var j = 0; j < totalOffers; j++) {
-        var pin = create(offers[j]);
-        pin.setAttribute('id', j);
-        fragment.appendChild(pin);
-        pinsContainer.addEventListener('click', onPinClick);
-        pinsContainer.appendChild(fragment);
+        if (offers[j].offer) {
+          var pinNode = create(offers[j]);
+          pinNode.setAttribute('id', j);
+          fragment.appendChild(pinNode);
+        }
       }
+      containerNode.addEventListener('click', onPinClick);
+      containerNode.appendChild(fragment);
     }
   };
 
   var update = function (offers) {
-    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    var pinsNode = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.card.close();
-    remove(pins);
+    remove(pinsNode);
     render(offers);
   };
 
@@ -58,18 +68,26 @@
     pins.forEach(function (item) {
       item.remove();
     });
-    pinsContainer.removeEventListener('click', onPinClick);
+    containerNode.removeEventListener('click', onPinClick);
   };
 
-  var setPosition = function (pin, x, y) {
-    pin.style.left = x + 'px';
-    pin.style.top = y + 'px';
+  var disable = function () {
+    var activePinNode = containerNode.querySelector('.map__pin--active');
+    if (activePinNode) {
+      activePinNode.classList.remove('map__pin--active');
+    }
+  };
+
+  var setPosition = function (pinNode, x, y) {
+    pinNode.style.left = x + 'px';
+    pinNode.style.top = y + 'px';
   };
 
   window.pin = {
     setPosition: setPosition,
     render: render,
     update: update,
-    remove: remove
+    remove: remove,
+    disable: disable
   };
 })();

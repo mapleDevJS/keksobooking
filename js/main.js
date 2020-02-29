@@ -1,57 +1,59 @@
 'use strict';
 (function () {
 
-  var mainPin = document.querySelector('.map__pin--main');
-  var pageActivated = false;
+  var mainPinNode = document.querySelector('.map__pin--main');
+  window.isPageActivated = false;
 
-  var onMainButtonMouseDown = function (downEvt) {
+  var pageActivation = function () {
+    window.map.activate();
+    window.pin.render(window.offers);
+    window.form.activate();
+    window.isPageActivated = true;
+    mainPinNode.removeEventListener('keydown', onMainPinKeyDown);
+  };
+
+  var onMainPinMouseDown = function (downEvt) {
     downEvt.preventDefault();
 
-    if (downEvt.button === window.utils.KeyCode.MOUSE_MAIN) {
-      if (!window.main.pageActivated) {
-        window.map.activate();
-        window.pin.render(window.offers);
-        window.form.activate();
-        window.main.pageActivated = true;
-        mainPin.removeEventListener('keydown', onEnterKeyDown);
+    if (window.utils.Check.isMainButtonPressed(downEvt)) {
+      if (!window.isPageActivated) {
+        pageActivation();
       }
-
       window.dragndrop.activate(downEvt);
     }
   };
 
-  var onEnterKeyDown = function (evt) {
-    if (evt.KeyCode === window.utils.KeyCode.ENTER) {
-      window.map.activate();
-      window.form.activate();
+  var onMainPinKeyDown = function (evt) {
+    if (window.utils.Check.isEnterPressed(evt)) {
+      pageActivation();
       window.form.fillAddressInput();
     }
   };
 
   var onSuccess = function (data) {
     window.offers = data;
-    mainPin.addEventListener('mousedown', onMainButtonMouseDown);
-    mainPin.addEventListener('keydown', onEnterKeyDown);
+    mainPinNode.addEventListener('mousedown', onMainPinMouseDown);
+    mainPinNode.addEventListener('keydown', onMainPinKeyDown);
   };
 
-  var onMainButtonClick = function (evt) {
-    if (evt.button === window.utils.KeyCode.MOUSE_MAIN) {
+  var onContentClick = function (evt) {
+    if (window.utils.Check.isMainButtonPressed(evt)) {
       window.message.close();
-      document.removeEventListener('click', onMainButtonClick);
+      document.removeEventListener('click', onContentClick);
     }
   };
 
-  var onEscapeKeyDown = function (evt) {
-    if (evt.KeyCode === window.utils.KeyCode.ESCAPE) {
+  var onContentKeyDown = function (evt) {
+    if (window.utils.Check.isEscapePressed(evt)) {
       window.message.close();
-      document.removeEventListener('keydown', onEscapeKeyDown);
+      document.removeEventListener('keydown', onContentKeyDown);
     }
   };
 
   var onError = function (errorText, status) {
     window.message.show(errorText, status);
-    document.addEventListener('click', onMainButtonClick);
-    document.addEventListener('keydown', onEscapeKeyDown);
+    document.addEventListener('click', onContentClick);
+    document.addEventListener('keydown', onContentKeyDown);
   };
 
   window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
@@ -59,9 +61,8 @@
   window.form.disable();
 
   window.main = {
-    pageActivated: pageActivated,
-    onMainButtonClick: onMainButtonClick,
-    onEscapeKeyDown: onEscapeKeyDown
+    onContentClick: onContentClick,
+    onContentKeyDown: onContentKeyDown
   };
 
 })();

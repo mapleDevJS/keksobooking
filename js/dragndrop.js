@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var mainPin = document.querySelector('.map__pin--main');
+  var mainPinNode = document.querySelector('.map__pin--main');
 
   var activate = function (downEvt) {
     var mouseStartCoord = {
@@ -8,7 +8,7 @@
       y: downEvt.clientY
     };
 
-    var onMouseMove = function (moveEvt) {
+    var onContentMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -22,28 +22,28 @@
       };
 
       var mainPinCoord = {
-        x: mainPin.offsetLeft - shift.x,
-        y: mainPin.offsetTop - shift.y
+        x: mainPinNode.offsetLeft - shift.x,
+        y: mainPinNode.offsetTop - shift.y
       };
 
-      mainPinCoord.x = (mainPinCoord.x < window.map.limit.LEFT) ? window.map.limit.LEFT : mainPinCoord.x;
-      mainPinCoord.x = (mainPinCoord.x > window.map.limit.RIGHT) ? window.map.limit.RIGHT : mainPinCoord.x;
-      mainPinCoord.y = (mainPinCoord.y < window.map.limit.TOP) ? window.map.limit.TOP : mainPinCoord.y;
-      mainPinCoord.y = (mainPinCoord.y > window.map.limit.BOTTOM) ? window.map.limit.BOTTOM : mainPinCoord.y;
+      mainPinCoord.x = (mainPinCoord.x < window.map.Limit.LEFT) ? window.map.Limit.LEFT : mainPinCoord.x;
+      mainPinCoord.x = (mainPinCoord.x > window.map.Limit.RIGHT) ? window.map.Limit.RIGHT : mainPinCoord.x;
+      mainPinCoord.y = (mainPinCoord.y < window.map.Limit.TOP) ? window.map.Limit.TOP : mainPinCoord.y;
+      mainPinCoord.y = (mainPinCoord.y > window.map.Limit.BOTTOM) ? window.map.Limit.BOTTOM : mainPinCoord.y;
 
-      window.pin.setPosition(mainPin, mainPinCoord.x, mainPinCoord.y);
+      window.pin.setPosition(mainPinNode, mainPinCoord.x, mainPinCoord.y);
     };
 
-    var onMainButtonMouseUp = function (upEvt) {
+    var onContentMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMainButtonMouseUp);
+      document.removeEventListener('mousemove', onContentMouseMove);
+      document.removeEventListener('mouseup', onContentMouseUp);
       window.form.fillAddressInput();
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMainButtonMouseUp);
+    document.addEventListener('mousemove', onContentMouseMove);
+    document.addEventListener('mouseup', onContentMouseUp);
   };
 
   window.dragndrop = {

@@ -2,9 +2,24 @@
 
 (function () {
   var KeyCode = {
-    MOUSE_MAIN: 0,
     ENTER: 13,
     ESCAPE: 27
+  };
+
+  var ButtonCode = {
+    MOUSE_MAIN: 0,
+  };
+
+  var Check = {
+    isEnterPressed: function (evt) {
+      return evt.keyCode === KeyCode.ENTER;
+    },
+    isEscapePressed: function (evt) {
+      return evt.keyCode === KeyCode.ESCAPE;
+    },
+    isMainButtonPressed: function (evt) {
+      return evt.button === ButtonCode.MOUSE_MAIN;
+    }
   };
 
   var getRandomElement = function (array) {
@@ -23,8 +38,15 @@
     return modifiedArray;
   };
 
+  var isArrayEmpty = function (array) {
+    return (Array.isArray(array) && array.length);
+  };
+
   window.utils = {
     KeyCode: KeyCode,
-    getMultipleRandomElements: getMultipleRandomElements
+    ButtonCode: ButtonCode,
+    Check: Check,
+    getMultipleRandomElements: getMultipleRandomElements,
+    isArrayEmpty: isArrayEmpty
   };
 })();

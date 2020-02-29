@@ -1,14 +1,14 @@
 'use strict';
 
 (function () {
-  var text = {
-    ERROR: 'Произошла ошибка соединения',
+  var Text = {
+    ERROR: 'Проверьте подключение к интернету',
     RESPONSE: 'Статус ответа: ',
     TIMEOUT: 'Превышено время ожидания данных '
   };
 
-  var time = {
-    si: 'мс'
+  var Time = {
+    SI: 'мс'
   };
 
   var main = document.querySelector('main');
@@ -41,15 +41,15 @@
   };
 
   var atLoad = function (request) {
-    return text.RESPONSE + request.status + ' ' + request.statusText;
+    return Text.RESPONSE + request.status + ' ' + request.statusText;
   };
 
   var atTimeout = function (request) {
-    return text.TIMEOUT + request.timeout + time.si;
+    return Text.TIMEOUT + request.timeout + Time.SI;
   };
 
   window.message = {
-    text: text,
+    Text: Text,
     show: show,
     close: close,
     atLoad: atLoad,
