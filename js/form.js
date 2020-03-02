@@ -8,6 +8,7 @@
   var avatarPreviewNode = document.querySelector('.ad-form-header__preview');
   var photoPreviewNode = document.querySelector('.ad-form__photo');
   var avatarImgNode = avatarPreviewNode.querySelector('img');
+  var avatarImgSrc = avatarImgNode.src;
   var photoImgNode = photoPreviewNode.querySelector('img');
   var fieldsetsNode = formNode.querySelectorAll('fieldset');
   var addressNode = formNode.querySelector('#address');
@@ -33,6 +34,7 @@
     });
 
     window.validation.disable();
+
     addressNode.setAttribute('readonly', 'readonly');
   };
 
@@ -55,18 +57,34 @@
 
   var onError = function (errorText) {
     window.message.show(errorText, 'error');
-    document.addEventListener('click', window.main.onContentClick);
-    document.addEventListener('keydown', window.main.onContentKeyDown);
+    document.addEventListener('click', onContentClick);
+    document.addEventListener('keydown', onContentKeyDown);
   };
 
   var onSuccess = function () {
     window.message.show('', 'success');
-    document.addEventListener('click', window.main.onContentClick);
-    document.addEventListener('keydown', window.main.onContentKeyDown);
+    document.addEventListener('click', onContentClick);
+    document.addEventListener('keydown', onContentKeyDown);
     disable();
     window.map.disable();
     formNode.reset();
+    avatarImgNode.remove('src');
+    photoImgNode.remove('src');
     window.isPageActivated = false;
+  };
+
+  var onContentClick = function (evt) {
+    if (window.utils.Check.isMainButtonPressed(evt)) {
+      window.message.close();
+      document.removeEventListener('click', onContentClick);
+    }
+  };
+
+  var onContentKeyDown = function (evt) {
+    if (window.utils.Check.isEscapePressed(evt)) {
+      window.message.close();
+      document.removeEventListener('keydown', onContentKeyDown);
+    }
   };
 
   var onResetButtonClick = function (evt) {
@@ -74,6 +92,8 @@
       evt.preventDefault();
       window.card.close();
       formNode.reset();
+      avatarImgNode.src = avatarImgSrc;
+      photoImgNode.remove('src');
       disable();
       fillAddressInput();
       window.map.disable();
