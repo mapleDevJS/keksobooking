@@ -4,7 +4,7 @@
   var mainPinNode = document.querySelector('.map__pin--main');
   window.isPageActivated = false;
 
-  var pageActivation = function () {
+  var activatePage = function () {
     window.map.activate();
     window.pin.render(window.offers);
     window.form.activate();
@@ -17,7 +17,7 @@
 
     if (window.utils.Check.isMainButtonPressed(downEvt)) {
       if (!window.isPageActivated) {
-        pageActivation();
+        activatePage();
       }
       window.dragndrop.activate(downEvt);
     }
@@ -25,7 +25,10 @@
 
   var onMainPinKeyDown = function (evt) {
     if (window.utils.Check.isEnterPressed(evt)) {
-      pageActivation();
+      if (!window.isPageActivated) {
+        activatePage();
+      }
+      window.dragndrop.activate(evt);
       window.form.fillAddressInput();
     }
   };
@@ -40,6 +43,7 @@
     if (window.utils.Check.isMainButtonPressed(evt)) {
       window.message.close();
       document.removeEventListener('click', onContentClick);
+      window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
     }
   };
 
@@ -47,6 +51,7 @@
     if (window.utils.Check.isEscapePressed(evt)) {
       window.message.close();
       document.removeEventListener('keydown', onContentKeyDown);
+      window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
     }
   };
 
