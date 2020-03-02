@@ -92,6 +92,7 @@
       evt.preventDefault();
       window.card.close();
       formNode.reset();
+      window.validation.resetHighlights();
       avatarImgNode.src = avatarImgSrc;
       photoImgNode.remove('src');
       disable();
@@ -109,7 +110,7 @@
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(window.backend.ServerUrl.POST, new FormData(formNode), onSuccess, onError);
+    window.backend.request('POST', window.backend.ServerUrl.POST, new FormData(formNode), onSuccess, onError);
   };
 
   var onAvatarChooserChange = function () {

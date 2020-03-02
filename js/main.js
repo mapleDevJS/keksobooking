@@ -6,7 +6,6 @@
 
   var activatePage = function () {
     window.map.activate();
-    window.pin.render(window.offers);
     window.form.activate();
     window.isPageActivated = true;
     mainPinNode.removeEventListener('keydown', onMainPinKeyDown);
@@ -18,6 +17,7 @@
     if (window.utils.Check.isMainButtonPressed(downEvt)) {
       if (!window.isPageActivated) {
         activatePage();
+        window.backend.request('GET', window.backend.ServerUrl.GET, '', onSuccess, onError);
       }
       window.dragndrop.activate(downEvt);
     }
@@ -27,6 +27,7 @@
     if (window.utils.Check.isEnterPressed(evt)) {
       if (!window.isPageActivated) {
         activatePage();
+        window.backend.request('GET', window.backend.ServerUrl.GET, '', onSuccess, onError);
       }
       window.dragndrop.activate(evt);
       window.form.fillAddressInput();
@@ -35,15 +36,13 @@
 
   var onSuccess = function (data) {
     window.offers = data;
-    mainPinNode.addEventListener('mousedown', onMainPinMouseDown);
-    mainPinNode.addEventListener('keydown', onMainPinKeyDown);
+    window.pin.render(window.offers);
   };
 
   var onContentClick = function (evt) {
     if (window.utils.Check.isMainButtonPressed(evt)) {
       window.message.close();
       document.removeEventListener('click', onContentClick);
-      window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
     }
   };
 
@@ -51,7 +50,6 @@
     if (window.utils.Check.isEscapePressed(evt)) {
       window.message.close();
       document.removeEventListener('keydown', onContentKeyDown);
-      window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
     }
   };
 
@@ -61,7 +59,8 @@
     document.addEventListener('keydown', onContentKeyDown);
   };
 
-  window.backend.load(window.backend.ServerUrl.GET, onSuccess, onError);
+  mainPinNode.addEventListener('mousedown', onMainPinMouseDown);
+  mainPinNode.addEventListener('keydown', onMainPinKeyDown);
   window.form.fillAddressInput();
   window.form.disable();
 

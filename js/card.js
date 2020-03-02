@@ -5,64 +5,46 @@
   var mapNode = document.querySelector('.map');
   var mapFiltersContainerNode = mapNode.querySelector('.map__filters-container');
 
+  var createNode = function (node, property, value) {
+    if (window.utils.isArrayEmpty(property)) {
+      node.remove();
+    } else {
+      node.textContent = value;
+    }
+  };
+
   var create = function (ad) {
     var cardNode = template.cloneNode(true);
+    var value;
 
     var titleNode = cardNode.querySelector('.popup__title');
-    if (window.utils.isArrayEmpty(ad.offer.title)) {
-      titleNode.remove();
-    } else {
-      titleNode.textContent = ad.offer.title;
-    }
+    createNode(titleNode, ad.offer.title, ad.offer.title);
 
     var addressNode = cardNode.querySelector('.popup__text--address');
-    if (window.utils.isArrayEmpty(ad.offer.address)) {
-      addressNode.remove();
-    } else {
-      addressNode.textContent = ad.offer.address;
-    }
+    createNode(addressNode, ad.offer.address, ad.offer.address);
 
     var priceNode = cardNode.querySelector('.popup__text--price');
-    if (window.utils.isArrayEmpty(ad.offer.price)) {
-      priceNode.remove();
-    } else {
-      priceNode.textContent = ad.offer.price + ' ₽/ночь';
-    }
+    value = ad.offer.price + ' ₽/ночь';
+    createNode(priceNode, ad.offer.price, value);
 
     var typeNode = cardNode.querySelector('.popup__type');
-    if (window.utils.isArrayEmpty(ad.offer.type)) {
-      typeNode.remove();
-    } else {
-      typeNode.textContent = window.data.Properties.TYPE_RU[ad.offer.type];
-    }
+    value = window.data.Properties.TYPE_RU[ad.offer.type];
+    createNode(typeNode, ad.offer.type, value);
 
     var capacityNode = cardNode.querySelector('.popup__text--capacity');
-    if (window.utils.isArrayEmpty(ad.offer.capacity)) {
-      capacityNode.remove();
-    } else {
-      capacityNode.textContent = window.data.Properties.TYPE_RU[ad.offer.type];
-    }
+    value = window.data.generateTextRoomsAndGuests(ad.offer.rooms, ad.offer.guests);
+    createNode(capacityNode, ad.offer.guests, value);
 
     var timeNode = cardNode.querySelector('.popup__text--time');
-    if (window.utils.isArrayEmpty(ad.offer.time)) {
-      timeNode.remove();
-    } else {
-      timeNode.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-    }
+    value = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+    createNode(timeNode, ad.offer.time, value);
 
     var featuresNode = cardNode.querySelector('.popup__features');
-    if (window.utils.isArrayEmpty(ad.offer.features)) {
-      featuresNode.remove();
-    } else {
-      featuresNode.textContent = window.data.Properties.FEATURES_RU[ad.offer.features];
-    }
+    value = window.data.Properties.FEATURES_RU[ad.offer.features];
+    createNode(featuresNode, ad.offer.features, value);
 
     var descriptionNode = cardNode.querySelector('.popup__description');
-    if (window.utils.isArrayEmpty(ad.offer.description)) {
-      descriptionNode.remove();
-    } else {
-      descriptionNode.textContent = ad.offer.description;
-    }
+    createNode(descriptionNode, ad.offer.description, ad.offer.description);
 
     var photosNode = cardNode.querySelector('.popup__photos');
     if (window.utils.isArrayEmpty(ad.offer.photos)) {
@@ -72,11 +54,7 @@
     }
 
     var avatarNode = cardNode.querySelector('.popup__avatar');
-    if (window.utils.isArrayEmpty(ad.offer.avatar)) {
-      avatarNode.remove();
-    } else {
-      avatarNode.src = ad.author.avatar;
-    }
+    createNode(avatarNode, ad.offer.avatar, ad.author.avatar);
 
     return cardNode;
   };

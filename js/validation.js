@@ -13,6 +13,8 @@
   var avatarNode = document.querySelector('#avatar');
   var imagesNode = formNode.querySelector('#images');
 
+  var inputFields = formNode.querySelectorAll('input');
+
   var TITLE_LENGTH = {
     MIN: 30,
     MAX: 100
@@ -40,6 +42,12 @@
 
   var resetHighlightInput = function (input) {
     input.style.border = '';
+  };
+
+  var resetHighlights = function () {
+    inputFields.forEach(function (input) {
+      input.style.border = '';
+    });
   };
 
   var onTitleChange = function () {
@@ -156,7 +164,8 @@
   window.validation = {
     TITLE_LENGTH: TITLE_LENGTH,
     activate: activate,
-    disable: disable
+    disable: disable,
+    resetHighlights: resetHighlights
   };
 
 })();
