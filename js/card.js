@@ -72,7 +72,7 @@
     }
 
     var avatarNode = cardNode.querySelector('.popup__avatar');
-    if (window.utils.isArrayEmpty(ad.offer.avatar)) {
+    if (window.utils.isArrayEmpty(ad.author.avatar)) {
       avatarNode.remove();
     } else {
       avatarNode.src = ad.author.avatar;
