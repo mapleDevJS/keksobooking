@@ -2,8 +2,8 @@
 
 (function () {
   var ServerUrl = {
-    GET: 'https://js.dump.academy/keksobooking/data',
-    POST: 'https://js.dump.academy/keksobooking'
+    GET: 'https://javascript.pages.academy/keksobooking/data',
+    POST: 'https://javascript.pages.academy/keksobooking'
   };
 
   var TIMEOUT_IN_MS = 5000;
