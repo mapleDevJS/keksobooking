@@ -2,13 +2,13 @@
 
 (function () {
   var Text = {
-    ERROR: 'Проверьте подключение к интернету',
-    RESPONSE: 'Статус ответа: ',
-    TIMEOUT: 'Превышено время ожидания данных '
+    ERROR: 'Please check your Internet connection...',
+    RESPONSE: 'Status of response: ',
+    TIMEOUT: 'Exceed time of waiting '
   };
 
   var Time = {
-    SI: 'мс'
+    SI: 'ms'
   };
 
   var main = document.querySelector('main');
